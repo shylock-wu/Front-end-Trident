@@ -364,31 +364,6 @@
     
     
     <entry>
-      <title>JS使用forEach、await、async注意事项</title>
-      <link href="/2023/01/01/JavaScript_forEach_async/"/>
-      <url>/2023/01/01/JavaScript_forEach_async/</url>
-      
-        <content type="html"><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p><strong>使用forEach进行循环请求数据</strong></p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> userMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>([<br>  [<span class="hljs-string">&#x27;0001&#x27;</span>, <span class="hljs-string">&#x27;Bob&#x27;</span>],<br>  [<span class="hljs-string">&#x27;0002&#x27;</span>, <span class="hljs-string">&#x27;peter&#x27;</span>],<br>  [<span class="hljs-string">&#x27;0003&#x27;</span>, <span class="hljs-string">&#x27;John&#x27;</span>],<br>]);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getUserName</span>(<span class="hljs-params">id</span>) &#123;<br>  <span class="hljs-comment">//模拟网络请求</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-keyword">const</span> name = userMap.<span class="hljs-title function_">get</span>(id);<br>      <span class="hljs-keyword">return</span> <span class="hljs-title function_">resolve</span>(name);<br>    &#125;, <span class="hljs-number">3000</span>);<br>  &#125;);<br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">run</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">let</span> users = [<span class="hljs-string">&#x27;0001&#x27;</span>, <span class="hljs-string">&#x27;0002&#x27;</span>, <span class="hljs-string">&#x27;0003&#x27;</span>];<br>  <span class="hljs-keyword">let</span> nameArray = [];<br>  users.<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">async</span> (item) =&gt; &#123;<br>    <span class="hljs-keyword">const</span> name = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getUserName</span>(users[<span class="hljs-number">0</span>]);<br>    nameArray.<span class="hljs-title function_">push</span>(name);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(nameArray);<br>  &#125;);<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(nameArray);<br>&#125;<br><br><span class="hljs-title function_">run</span>();<br></code></pre></td></tr></table></figure><p><img src="/images/forEach-await.png"></p><p><strong>如果使用for循环</strong></p><p><img src="/images/jsAwait.png"></p><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>今天回顾了 async&#x2F;await 在循环语句里的使用方法，对于普通的 for-loop，所有的 await 都是串行调用的，可以放心使用，包括 while、for-in、for-of 等等；但是在有 callback 的 array 方法，如 forEach、map、filter、reduce 等等，有许多副作用，最好就别使用 await 了。当然最优解还是 Promise.all，无论从质量上还是效率上都是不二选择。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 疑难杂症 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> JavaScript </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Hello World</title>
       <link href="/2023/01/01/hello-world/"/>
       <url>/2023/01/01/hello-world/</url>
@@ -406,6 +381,31 @@
         <tags>
             
             <tag> 其他 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JS使用forEach、await、async注意事项</title>
+      <link href="/2023/01/01/JavaScript_forEach_async/"/>
+      <url>/2023/01/01/JavaScript_forEach_async/</url>
+      
+        <content type="html"><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p><strong>使用forEach进行循环请求数据</strong></p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> userMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>([<br>  [<span class="hljs-string">&#x27;0001&#x27;</span>, <span class="hljs-string">&#x27;Bob&#x27;</span>],<br>  [<span class="hljs-string">&#x27;0002&#x27;</span>, <span class="hljs-string">&#x27;peter&#x27;</span>],<br>  [<span class="hljs-string">&#x27;0003&#x27;</span>, <span class="hljs-string">&#x27;John&#x27;</span>],<br>]);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getUserName</span>(<span class="hljs-params">id</span>) &#123;<br>  <span class="hljs-comment">//模拟网络请求</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-keyword">const</span> name = userMap.<span class="hljs-title function_">get</span>(id);<br>      <span class="hljs-keyword">return</span> <span class="hljs-title function_">resolve</span>(name);<br>    &#125;, <span class="hljs-number">3000</span>);<br>  &#125;);<br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">run</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">let</span> users = [<span class="hljs-string">&#x27;0001&#x27;</span>, <span class="hljs-string">&#x27;0002&#x27;</span>, <span class="hljs-string">&#x27;0003&#x27;</span>];<br>  <span class="hljs-keyword">let</span> nameArray = [];<br>  users.<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">async</span> (item) =&gt; &#123;<br>    <span class="hljs-keyword">const</span> name = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getUserName</span>(users[<span class="hljs-number">0</span>]);<br>    nameArray.<span class="hljs-title function_">push</span>(name);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(nameArray);<br>  &#125;);<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(nameArray);<br>&#125;<br><br><span class="hljs-title function_">run</span>();<br></code></pre></td></tr></table></figure><p><img src="/images/forEach-await.png"></p><p><strong>如果使用for循环</strong></p><p><img src="/images/jsAwait.png"></p><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>今天回顾了 async&#x2F;await 在循环语句里的使用方法，对于普通的 for-loop，所有的 await 都是串行调用的，可以放心使用，包括 while、for-in、for-of 等等；但是在有 callback 的 array 方法，如 forEach、map、filter、reduce 等等，有许多副作用，最好就别使用 await 了。当然最优解还是 Promise.all，无论从质量上还是效率上都是不二选择。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 疑难杂症 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
             
         </tags>
       
