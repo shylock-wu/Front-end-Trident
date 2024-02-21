@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'HYT';
+  /* 自定义jsdelivr cdn 字体 */
+  src: url('https://cdn.jsdelivr.net/gh/shylock-wu/jsdelivr-CDN@v1.0.0/HYTangMeiRen55W.woff2');
+  /* src: url('http://rrhyqpbcs.hb-bkt.clouddn.com/assets/HYTangMeiRen55W.woff2?e=1679027749&token=2RhlyfbbDa2F13vaJt9xYV26y4WNwC-zUoRta62B:QARc-rHTxegpkpJhLfBzG6_6l2w='); */
+  /* src: url('./HYTangMeiRen55W.woff2'); */
+}

@@ -1,0 +1,471 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>前端面试之JS基础篇(一) | shylock'blog</title><meta name="author" content="Shylock"><meta name="copyright" content="Shylock"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="JS中的数据类型有哪些 原始类型（Primitive types）：包括数字（Number）、字符串（String）、布尔值（Boolean）、空（Null）、未定义（Undefined）、大整数（BigInt）和符号（Symbol）。  引用类型（Reference types）：包括对象（Obj"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://shylockkai.gitee.io/shylockkai/2023/02/13/JavaScript/interview-js01/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '前端面试之JS基础篇(一)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-21 15:58:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script src="/js/disableF12.js"></script><link rel="stylesheet" href="/self/vs2015.css"><link rel="stylesheet" href="/css/font.css"/><link rel="stylesheet" href="/css/diy.css"><link rel="stylesheet" href="/css/footer.css"><meta name="generator" content="Hexo 6.3.0"></head><body><link rel="stylesheet" href="/css/barber-shop.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s1.ax1x.com/2023/03/17/ppG9j1A.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 资源</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fa fa-video-camera"></i><span> 电影</span></a></li><li><a class="site-page child" href="/photo/"><i class="fa-fw fa fa-image"></i><span> 图片</span></a></li><li><a class="site-page child" href="/pdf/"><i class="fa-fw fa fa-file-pdf"></i><span> PDF</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/laboratory/"><i class="fa-fw fa fa-flask-vial"></i><span> 实验室</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heart"></i><span> 随记</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/notes/2022/"><span> 2022</span></a></li><li><a class="site-page child" href="/notes/2023/"><span> 2023</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-external-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s1.ax1x.com/2023/03/31/pp2xA8e.png')"><nav id="nav"><span id="blog-info"><a href="/" title="shylock'blog"><span class="site-name">shylock'blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 资源</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fa fa-video-camera"></i><span> 电影</span></a></li><li><a class="site-page child" href="/photo/"><i class="fa-fw fa fa-image"></i><span> 图片</span></a></li><li><a class="site-page child" href="/pdf/"><i class="fa-fw fa fa-file-pdf"></i><span> PDF</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/laboratory/"><i class="fa-fw fa fa-flask-vial"></i><span> 实验室</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heart"></i><span> 随记</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/notes/2022/"><span> 2022</span></a></li><li><a class="site-page child" href="/notes/2023/"><span> 2023</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-external-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">前端面试之JS基础篇(一)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-13T06:24:43.000Z" title="发表于 2023-02-13 14:24:43">2023-02-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-21T07:58:34.314Z" title="更新于 2024-02-21 15:58:34">2024-02-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">12k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>39分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="前端面试之JS基础篇(一)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="JS中的数据类型有哪些"><a href="#JS中的数据类型有哪些" class="headerlink" title="JS中的数据类型有哪些"></a>JS中的数据类型有哪些</h1><ol>
+<li><p>原始类型（Primitive types）：包括数字（Number）、字符串（String）、布尔值（Boolean）、空（Null）、未定义（Undefined）、大整数（BigInt）和符号（Symbol）。</p>
+</li>
+<li><p>引用类型（Reference types）：包括对象（Object）、数组（Array）、函数（Function）等。</p>
+</li>
+</ol>
+<p>在 ES6 中，还引入了新的数据类型：Map、Set、WeakMap、WeakSet，以及用于处理二进制数据的 ArrayBuffer、TypedArray 和 DataView 类型。</p>
+<h1 id="介绍js有哪些内置对象"><a href="#介绍js有哪些内置对象" class="headerlink" title="介绍js有哪些内置对象"></a>介绍js有哪些内置对象</h1><p>JavaScript 中有许多内置对象，它们提供了许多有用的方法和属性，下面是一些常见的内置对象：</p>
+<ol>
+<li>Object：JavaScript 的基本对象，所有其他内置对象都是 Object 的后代。</li>
+<li>Array：表示一个数组，提供了许多有用的方法来处理数组。</li>
+<li>String：表示一个字符串，提供了许多有用的方法来处理字符串。</li>
+<li>Number：表示一个数字，提供了许多有用的方法来处理数字。</li>
+<li>Boolean：表示一个布尔值，即 true 或 false。</li>
+<li>Date：表示一个日期和时间，提供了有用的方法来处理日期和时间。</li>
+<li>Math：提供了许多数学函数和常量。</li>
+<li>RegExp：表示一个正则表达式，提供了有用的方法来处理文本匹配。</li>
+<li>Error：表示一个运行时错误，提供了有用的方法来处理异常。</li>
+</ol>
+<p>除了这些常见的内置对象之外，还有许多其他内置对象，如 Map、Set、WeakMap、WeakSet、Promise、Proxy 等。</p>
+<h1 id="说几条写javascript的基本规范"><a href="#说几条写javascript的基本规范" class="headerlink" title="说几条写javascript的基本规范"></a>说几条写javascript的基本规范</h1><p>编写代码时遵循一定的规范和约定是很重要的，有助于提高代码质量和可读性，以下是一些编写JavaScript代码时的基本规范：</p>
+<ol>
+<li>使用驼峰命名法命名变量、函数和对象属性。</li>
+<li>使用四个空格代替制表符来缩进代码。</li>
+<li>代码中使用单引号而不是双引号。</li>
+<li>对于代码中的魔术数值（magic number），应该使用常量或变量来代替。</li>
+<li>使用严格相等（&#x3D;&#x3D;&#x3D;）代替松散相等（&#x3D;&#x3D;），可以避免类型转换的意外行为。</li>
+<li>对于条件语句和循环语句的代码块，应该使用大括号包裹起来，即使代码块只有一行语句。</li>
+<li>使用注释来解释代码的目的和实现细节，特别是一些比较复杂或难以理解的代码。</li>
+<li>避免使用全局变量和函数，这会污染全局命名空间并可能导致命名冲突。</li>
+<li>尽可能使用模块化的方式组织代码，避免代码的耦合度过高。</li>
+<li>使用ES6语法中的let和const来声明变量，避免使用var。</li>
+</ol>
+<h1 id="谈谈闭包"><a href="#谈谈闭包" class="headerlink" title="谈谈闭包"></a>谈谈闭包</h1><p>JavaScript闭包（Closure）指的是一个函数能够访问并使用其声明时所处的作用域中的变量，即使函数被返回或传递到其他函数中执行时，依然可以访问到其声明时的作用域。具体来说，闭包是由函数以及函数内部定义的变量（即自由变量）组成的包裹体，该函数可以访问自由变量，并且自由变量的值在闭包创建时被保存下来，即使在函数执行时，自由变量的作用域已经销毁，闭包依然可以使用它们。</p>
+<blockquote>
+<p>下面是一个简单的闭包示例：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">outerFunction</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">var</span> outerVariable = <span class="hljs-string">&#x27;Hello&#x27;</span>;<br><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">innerFunction</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(outerVariable);<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> innerFunction;<br>&#125;<br><br><span class="hljs-keyword">var</span> fn = <span class="hljs-title function_">outerFunction</span>();<br><span class="hljs-title function_">fn</span>(); <span class="hljs-comment">// 输出&#x27;Hello&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>在上面的示例中，<code>innerFunction</code>函数是一个闭包，它可以访问<code>outerVariable</code>变量，即使<code>outerFunction</code>函数已经执行完毕并且作用域已经销毁。这是因为<code>innerFunction</code>函数捕获了<code>outerVariable</code>变量的引用，并将其保存在自己的作用域链中，使其能够在需要的时候被访问。</p>
+<p>闭包可以用于很多场景，其中一些常见的用途包括：</p>
+<ul>
+<li>封装变量和函数：通过闭包，可以将变量和函数封装在一个私有的作用域中，从而避免命名冲突和全局污染。</li>
+<li>保留函数的状态：通过闭包，函数可以在多次调用之间保留状态，从而实现类似于类的行为。</li>
+<li>实现回调和异步编程：通过闭包，可以在异步操作完成后访问原始上下文中的变量和函数。</li>
+</ul>
+<div class="note info flat"><p>需要注意的是，闭包可能会导致内存泄漏，因为它会一直保留自由变量的引用，从而阻止垃圾回收机制对这些变量的回收。因此，在使用闭包时需要谨慎考虑内存管理问题，避免出现不必要的内存泄漏。</p>
+</div>
+<h1 id="说说你对作用域链的理解"><a href="#说说你对作用域链的理解" class="headerlink" title="说说你对作用域链的理解"></a>说说你对作用域链的理解</h1><p>作用域链是 JavaScript 中一个非常重要的概念，它描述了变量的查找方式和访问规则。当 JavaScript 引擎执行一个函数时，会为该函数创建一个新的执行上下文（Execution Context），并在该上下文中维护一个作用域链（Scope Chain）。作用域链是由当前执行上下文的变量对象和所有包含它的父级执行上下文的变量对象组成的链式结构。作用域链中的每个变量对象都包含了该执行上下文中声明的变量、函数和形参，以及它所在的上级执行上下文中声明的变量和函数。</p>
+<p>当需要访问一个变量时，JavaScript 引擎会先从当前执行上下文的变量对象中查找该变量，如果找不到，则沿着作用域链向上查找，直到找到该变量或者到达全局执行上下文。如果还是找不到，则会抛出“未定义变量”的错误。</p>
+<p>作用域链的顶端是全局执行上下文，也称为全局作用域，它包含了所有在全局范围内声明的变量和函数。在浏览器环境中，全局执行上下文对应的是 Window 对象，它是所有其他对象和变量的根对象。</p>
+<p>作用域链的维护方式是在函数定义时确定的，即在函数被定义时就确定了其作用域链的结构。当函数被调用时，它的作用域链就已经确定，并在函数执行过程中保持不变。因此，作用域链是在编译阶段就被确定的，而不是在运行时动态生成的。这也是 JavaScript 中函数作为一等公民的一个体现，因为函数可以作为变量来传递和使用，而其作用域链是在定义时就确定的，可以保证函数在运行时访问到正确的变量和函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> a = <span class="hljs-string">&#x27;global&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">var</span> b = <span class="hljs-string">&#x27;foo&#x27;</span>;<br><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">var</span> c = <span class="hljs-string">&#x27;bar&#x27;</span>;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a, b, c);<br>  &#125;<br><br>  <span class="hljs-title function_">bar</span>();<br>&#125;<br><br><span class="hljs-title function_">foo</span>();<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，全局作用域中声明了一个变量<code>a</code>，值为 <code>&#39;global&#39;</code>。函数<code>foo</code>中声明了一个变量<code>b</code>，值为<code>&#39;foo&#39;</code>，并定义了一个内部函数<code>bar</code>。函数<code>bar</code>中声明了一个变量 <code>c</code>，值为<code>&#39;bar&#39;</code>。在<code>bar</code>函数中，通过<code>console.log(a, b, c)</code>打印了三个变量的值。</p>
+<p>当<code>foo</code>函数被调用时，会创建一个新的执行上下文，并在其中维护一个作用域链。该作用域链由两个变量对象组成：当前执行上下文的变量对象和全局执行上下文的变量对象。当前执行上下文的变量对象包含了变量<code>b</code>和函数<code>bar</code>，全局执行上下文的变量对象包含了变量<code>a</code>。</p>
+<p>当<code>bar</code>函数被调用时，会创建一个新的执行上下文，并在其中维护一个作用域链。该作用域链由三个变量对象组成：当前执行上下文的变量对象、<code>foo</code>函数执行上下文的变量对象和全局执行上下文的变量对象。当前执行上下文的变量对象包含了变量<code>c</code>，<code>foo</code>函数执行上下文的变量对象包含了变量<code>b</code>和函数<code>bar</code>，全局执行上下文的变量对象包含了变量<code>a</code>。</p>
+<p>因此，在<code>bar</code>函数中访问变量时，会先查找当前执行上下文的变量对象，如果找不到，则沿着作用域链向上查找。在这个例子中，<code>bar</code>函数中访问的变量<code>a</code>在当前执行上下文的变量对象中不存在，因此会沿着作用域链向上查找，找到了全局执行上下文的变量对象，从而得到了变量<code>a</code>的值。变量<code>b</code>在当前执行上下文的变量对象中不存在，但在上一级<code>foo</code>函数执行上下文的变量对象中存在，因此可以通过作用域链找到变量<code>b</code>的值。变量<code>c</code>在当前执行上下文的变量对象中存在，因此可以直接访问变量<code>c</code>的值。</p>
+<p>最终，通过<code>console.log(a, b, c)</code>打印出的结果是<code>global foo bar</code>。这就是作用域链的查找过程。</p>
+<h1 id="javascript原型-原型链-有什么特点"><a href="#javascript原型-原型链-有什么特点" class="headerlink" title="javascript原型,原型链,有什么特点"></a>javascript原型,原型链,有什么特点</h1><h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p>在 JavaScript 中，每个对象都有一个原型对象（prototype），它提供了属性和方法的继承。原型对象也是一个对象，它可以拥有自己的原型对象，因此形成了原型链（prototype chain）。</p>
+<p>原型链是一种查找属性和方法的机制。当我们访问一个对象的属性或方法时，JavaScript 引擎会首先查找对象本身是否具有该属性或方法，如果没有，就会去查找它的原型对象是否有该属性或方法，如果还没有，就会去查找原型对象的原型对象，一直往上查找直到找到 Object.prototype（所有对象的原型链的顶端），如果在整个原型链中都没有找到该属性或方法，那么它就是 undefined。</p>
+<p>每个对象的原型对象可以通过构造函数的 prototype 属性来设置，当我们使用构造函数创建一个新对象时，新对象的原型对象就是构造函数的 prototype 属性指向的对象。同时，原型对象中定义的属性和方法也会被新对象所继承。这种继承方式被称为原型继承。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>JavaScript 的原型链有以下特点：</p>
+<ol>
+<li>对象之间的继承是通过原型链实现的，每个对象都有一个原型对象，形成一个原型链。</li>
+<li>对象可以继承其原型对象上的属性和方法。</li>
+<li>在查找属性和方法时，如果当前对象没有该属性或方法，则会去原型对象中查找，如果原型对象也没有，则继续往上查找，直到找到 Object.prototype（所有对象的原型链的顶端<code>undefined</code>）。</li>
+<li>对象的原型可以动态地改变，通过修改对象的原型可以影响到其所有的子孙对象。</li>
+<li>原型链的最终端是 Object.prototype，它本身没有原型对象。</li>
+</ol>
+<h2 id="proto-又是什么"><a href="#proto-又是什么" class="headerlink" title="__proto__又是什么"></a>__proto__又是什么</h2><p>在 JavaScript 中，每个对象都有一个内置的属性<code>__proto__</code>，它指向该对象的原型对象。<code>__proto__</code>是一个非标准的属性，不建议在代码中直接使用，应该使用<code>Object.getPrototypeOf</code>或<code>Object.setPrototypeOf</code>方法来获取或设置对象的原型。<br>例如，对于如下的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> obj = &#123;&#125;;<br></code></pre></td></tr></table></figure>
+<p><code>obj</code>是一个空对象，它的原型对象是<code>Object.prototype</code>。我们可以通过以下两种方式来访问<code>obj</code>的原型对象：</p>
+<ol>
+<li>使用 Object.getPrototypeOf 方法：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> proto = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(obj);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(proto === <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure></li>
+<li>直接访问 obj 的 <strong>proto</strong> 属性（不建议使用）：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> proto = obj.<span class="hljs-property">__proto__</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(proto === <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<div class="note info flat"><p>需要注意的是，<strong>proto</strong> 属性在一些旧的浏览器中可能不被支持，而且它不是 JavaScript 规范中定义的标准属性。因此，在编写代码时，应该避免直接使用 <strong>proto</strong> 属性。</p>
+</div>
+<h1 id="请解释什么是事件代理"><a href="#请解释什么是事件代理" class="headerlink" title="请解释什么是事件代理?"></a>请解释什么是事件代理?</h1><p>事件代理（Event delegation）是一种常用的事件处理机制，在处理一个包含大量子元素的父元素时，我们可以把事件处理程序添加到父元素上，这样在子元素上触发事件时，事件会冒泡到父元素，从而触发父元素上的事件处理程序。</p>
+<p>具体来说，当子元素上的事件被触发时，事件会向上冒泡到父元素，而事件代理利用这种冒泡机制来实现事件处理。通过给父元素添加事件处理程序，我们可以在父元素上监听所有子元素的事件，从而避免为每个子元素都添加事件处理程序，减少代码冗余和提高性能。</p>
+<p>例如，下面的 HTML 代码中，有一个<code>ul</code>元素包含多个<code>li</code>子元素，我们可以使用事件代理来监听<code>li</code>元素的<code>click</code>事件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;list&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 4<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Item 5<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>使用事件代理的代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> list = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;list&#x27;</span>);<br><br>list.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123;<br>  <span class="hljs-keyword">if</span> (event.<span class="hljs-property">target</span>.<span class="hljs-property">nodeName</span> === <span class="hljs-string">&#x27;LI&#x27;</span>) &#123;<br>    <span class="hljs-comment">// 处理点击事件</span><br>  &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，我们在<code>ul</code>元素上添加了一个<code>click</code>事件处理程序，当用户单击其中一个<code>li</code>元素时，事件会冒泡到<code>ul</code>元素上，然后事件处理程序检查事件的目标元素是否为<code>li</code>元素，如果是，就处理点击事件。这种方式使得我们只需要在父元素上添加一个事件处理程序，就可以监听所有子元素的事件，从而简化了代码。</p>
+<h1 id="JavaScript如何实现继承"><a href="#JavaScript如何实现继承" class="headerlink" title="JavaScript如何实现继承"></a>JavaScript如何实现继承</h1><p>在 JavaScript 中，实现继承通常有以下几种方式：</p>
+<ol>
+<li>原型链继承：通过让一个对象的原型指向另一个对象来实现继承。这种方式的缺点是父类的引用类型属性会被所有子类实例共享，并且在创建子类实例时无法向父类构造函数传递参数。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Animal</span>(<span class="hljs-params">name</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>&#125;<br><br><span class="hljs-title class_">Animal</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">sayName</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;My name is &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);<br>&#125;;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Dog</span>(<span class="hljs-params"></span>) &#123;<br>&#125;<br><br><span class="hljs-title class_">Dog</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Animal</span>(); <span class="hljs-comment">// 原型链继承</span><br><br><span class="hljs-keyword">const</span> dog = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Dog</span>();<br>dog.<span class="hljs-title function_">sayName</span>(); <span class="hljs-comment">// My name is undefined</span><br></code></pre></td></tr></table></figure></li>
+<li>借用构造函数继承：通过在子类构造函数中调用父类构造函数来实现继承。这种方式的缺点是无法继承父类原型上的属性和方法。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Animal</span>(<span class="hljs-params">name</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Dog</span>(<span class="hljs-params">name</span>) &#123;<br>  <span class="hljs-title class_">Animal</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, name); <span class="hljs-comment">// 借用构造函数继承</span><br>&#125;<br><br><span class="hljs-keyword">const</span> dog = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Dog</span>(<span class="hljs-string">&#x27;Tom&#x27;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(dog.<span class="hljs-property">name</span>); <span class="hljs-comment">// Tom</span><br></code></pre></td></tr></table></figure></li>
+<li>组合继承：通过将原型链继承和借用构造函数继承组合起来使用，从而继承父类构造函数中的属性，并且能够继承父类原型上的属性和方法。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Animal</span>(<span class="hljs-params">name</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>&#125;<br><br><span class="hljs-title class_">Animal</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">sayName</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;My name is &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);<br>&#125;;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Dog</span>(<span class="hljs-params">name</span>) &#123;<br>  <span class="hljs-title class_">Animal</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, name); <span class="hljs-comment">// 借用构造函数继承</span><br>&#125;<br><br><span class="hljs-title class_">Dog</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Animal</span>(); <span class="hljs-comment">// 原型链继承</span><br><span class="hljs-title class_">Dog</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">constructor</span> = <span class="hljs-title class_">Dog</span>;<br><br><span class="hljs-keyword">const</span> dog = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Dog</span>(<span class="hljs-string">&#x27;Tom&#x27;</span>);<br>dog.<span class="hljs-title function_">sayName</span>(); <span class="hljs-comment">// My name is Tom</span><br></code></pre></td></tr></table></figure></li>
+<li>原型式继承：通过 Object.create() 方法复制一个对象来实现继承，可以在原型上添加一些属性和方法，然后返回这个对象。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> animal = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Animal&#x27;</span>,<br>  <span class="hljs-attr">sayName</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;My name is &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);<br>  &#125;<br>&#125;;<br><br><span class="hljs-keyword">const</span> dog = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(animal, &#123; <span class="hljs-attr">name</span>: &#123; <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;Tom&#x27;</span> &#125; &#125;);<br><br>dog.<span class="hljs-title function_">sayName</span>(); <span class="hljs-comment">// My name is Tom</span><br></code></pre></td></tr></table></figure></li>
+<li>寄生式继承：通过在一个函数内部创建一个临时对象，并将其原型指向一个对象，然后返回这个对象，从而实现继承。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">createAnimal</span>(<span class="hljs-params">name</span>) &#123;<br>  <span class="hljs-keyword">const</span> animal = &#123;<br>    <span class="hljs-attr">name</span>: name,<br>    <span class="hljs-attr">sayName</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;My name is &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);<br>    &#125;<br>  &#125;;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(animal);<br>&#125;<br><br><span class="hljs-keyword">const</span> dog = <span class="hljs-title function_">createAnimal</span>(<span class="hljs-string">&#x27;Tom&#x27;</span>);<br>dog.<span class="hljs-title function_">sayName</span>(); <span class="hljs-comment">// My name is Tom</span><br></code></pre></td></tr></table></figure></li>
+<li>寄生组合式继承：通过将组合继承的缺点进行优化，从而实现继承。这种方式使用<code>Object.create()</code>方法来代替创建临时构<br>造函数的方式，从而避免了组合继承中不必要的开销和问题。<ol>
+<li>寄生组合式继承的实现思路如下：</li>
+<li>定义一个父类构造函数和它的原型方法；</li>
+<li>定义一个子类构造函数，通过调用父类构造函数来继承父类的属性；</li>
+<li>将父类原型对象的副本赋值给子类原型对象；</li>
+<li>将子类原型对象的构造函数指向子类本身。</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">inheritPrototype</span>(<span class="hljs-params">subType, superType</span>) &#123;<br>  <span class="hljs-keyword">const</span> prototype = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(superType.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);<br>  prototype.<span class="hljs-property">constructor</span> = subType;<br>  subType.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = prototype;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Parent</span>(<span class="hljs-params">name</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">colors</span> = [<span class="hljs-string">&quot;red&quot;</span>, <span class="hljs-string">&quot;green&quot;</span>, <span class="hljs-string">&quot;blue&quot;</span>];<br>&#125;<br><br><span class="hljs-title class_">Parent</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">sayName</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);<br>&#125;;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Child</span>(<span class="hljs-params">name, age</span>) &#123;<br>  <span class="hljs-title class_">Parent</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, name);<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span> = age;<br>&#125;<br><br><span class="hljs-title function_">inheritPrototype</span>(<span class="hljs-title class_">Child</span>, <span class="hljs-title class_">Parent</span>);<br><br><span class="hljs-title class_">Child</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">sayAge</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>);<br>&#125;;<br><br><span class="hljs-keyword">const</span> child1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Child</span>(<span class="hljs-string">&quot;Mike&quot;</span>, <span class="hljs-number">25</span>);<br><span class="hljs-keyword">const</span> child2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Child</span>(<span class="hljs-string">&quot;Mary&quot;</span>, <span class="hljs-number">30</span>);<br></code></pre></td></tr></table></figure>
+<p>这里使用了 Object.create() 方法来创建一个空对象，使其原型对象指向父类的原型对象，从而实现继承。同时，为了让子类原型对象的 constructor 属性指向子类本身，需要在赋值之后手动将其指回子类。</p>
+<h1 id="谈谈this对象的理解"><a href="#谈谈this对象的理解" class="headerlink" title="谈谈this对象的理解"></a>谈谈this对象的理解</h1><p>在 JavaScript 中，this 关键字是一个特殊的对象，它在不同的情况下会指向不同的对象。一般来说，this 的值是在函数调用时确定的，它的值取决于函数的调用方式。</p>
+<p>以下是 this 对象的一些常见用法和理解：</p>
+<ol>
+<li>在全局环境下，this 指向全局对象，即 window 对象（浏览器中）或 global 对象（Node.js 中）。</li>
+<li>在函数内部，this 指向调用该函数的对象。如果函数是作为对象的方法被调用的，this 就指向该对象。如果函数不是作为对象的方法被调用的，this 就指向全局对象。</li>
+<li>当使用 call、apply 或 bind 方法调用函数时，this 可以被显式地绑定到指定的对象上。</li>
+<li>当在构造函数中使用 this 时，this 指向新创建的对象实例。</li>
+<li>箭头函数中的 this 指向定义时所在的上下文对象，而不是调用时的上下文对象。</li>
+</ol>
+<p>理解 this 对象的原理非常重要，因为在 JavaScript 中，函数是一等公民，而且 this 对象在面向对象编程中也扮演着重要的角色。对于 JavaScript 的面向对象编程中的继承、多态等概念的理解，都需要对 this 对象的特点有一个清晰的认识。</p>
+<h1 id="事件模型是什么"><a href="#事件模型是什么" class="headerlink" title="事件模型是什么?"></a>事件模型是什么?</h1><p>事件模型是用于描述事件在程序中的传递和处理方式的一种模型。在Web开发中，事件模型用于描述浏览器中事件的传递和处理机制。</p>
+<p>在标准的事件模型中，事件由浏览器依次从外向内传递，即从document对象到最内层的目标元素，然后再依次从内向外进行处理。当事件发生在某个元素上时，会依次执行该元素和它的所有父元素绑定的事件处理程序，这个过程就是事件的传递。在这个过程中，事件对象会携带一些相关的信息，比如事件类型、事件目标等。如果某个事件处理程序处理了事件，事件传递就会停止，否则事件会继续传递到下一个元素。</p>
+<p>在事件模型中，常见的事件类型包括鼠标事件（比如click、mouseover、mouseout等）、键盘事件（比如keydown、keyup等）、表单事件（比如submit、reset等）以及窗口事件（比如load、unload、resize等）等。</p>
+<p>为了处理事件，开发者可以使用各种方法来绑定事件处理程序，比如DOM Level 0的方式（比如直接在HTML标签中使用onclick属性）、DOM Level 2的方式（比如使用addEventListener()方法）以及IE浏览器独有的方式（比如使用attachEvent()方法）。</p>
+<h1 id="new操作符具体干了什么呢"><a href="#new操作符具体干了什么呢" class="headerlink" title="new操作符具体干了什么呢?"></a>new操作符具体干了什么呢?</h1><p><code>new</code>操作符用于创建一个对象实例，其具体步骤如下：</p>
+<ol>
+<li>创建一个空对象。</li>
+<li>将该空对象的原型指向构造函数的 prototype 属性。</li>
+<li>执行构造函数，并将 this 绑定到该空对象上，即将构造函数的作用域赋给新对象，以便新对象可以访问构造函数中的属性和方法。</li>
+<li>如果构造函数没有返回值或者返回一个非对象类型，那么返回该新对象；否则返回构造函数返回的对象。</li>
+</ol>
+<p>举个例子，假设有一个构造函数<code>Person</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Person</span>(<span class="hljs-params">name, age</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span> = age;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">sayHello</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Hello, my name is <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>, I&#x27;m <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.age&#125;</span> years old.`</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果要创建一个<code>Person</code>的实例对象，可以使用<code>new</code>操作符：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> john = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&#x27;John&#x27;</span>, <span class="hljs-number">30</span>);<br></code></pre></td></tr></table></figure>
+<p>在执行 new Person(‘John’, 30) 的过程中，会创建一个空对象，然后将该空对象的原型指向 Person.prototype，接着将构造函数 Person 的 this 绑定到该空对象上，并执行构造函数中的代码，从而实现创建一个 Person 的实例对象 john。</p>
+<p>可以通过 console.log(john) 查看 john 的具体内容。</p>
+<h1 id="Ajax原理"><a href="#Ajax原理" class="headerlink" title="Ajax原理"></a>Ajax原理</h1><p>Ajax（Asynchronous JavaScript and XML）是一种在不刷新页面的情况下通过 JavaScript 向服务器发送请求并获取数据的技术。其基本原理是通过浏览器中的 XMLHttpRequest 对象，实现与服务器的异步通信。</p>
+<p>具体步骤如下：</p>
+<ol>
+<li>创建 XMLHttpRequest 对象<br>在 JavaScript 中，通过创建 XMLHttpRequest 对象来实现与服务器的交互。可以使用 new 操作符创建 XMLHttpRequest 对象，如下所示：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">XMLHttpRequest</span>();<br></code></pre></td></tr></table></figure></li>
+<li>建立与服务器的连接<br>使用 open() 方法建立与服务器的连接。open() 方法接受三个参数：请求方式（GET 或 POST）、请求的 URL、是否异步处理请求（true 或 false）。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">xhr.<span class="hljs-title function_">open</span>(<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;http://example.com/api/data&#x27;</span>, <span class="hljs-literal">true</span>);<br></code></pre></td></tr></table></figure></li>
+<li>发送请求<br>使用 send() 方法向服务器发送请求。send() 方法可以接受一个参数，即要发送的数据，如果没有数据要发送，则可以将参数设置为 null。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">xhr.<span class="hljs-title function_">send</span>(<span class="hljs-literal">null</span>);<br></code></pre></td></tr></table></figure></li>
+<li>接收服务器响应<br>通过监听 XMLHttpRequest 对象的 readyState 和 status 属性，可以获取服务器响应的数据。当 readyState 的值为 4 时，表示服务器响应已完成。status 属性可以获取服务器响应的状态码，一般来说，状态码为 200 表示请求成功，而其他状态码则表示请求失败。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">xhr.<span class="hljs-property">onreadystatechange</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">if</span> (xhr.<span class="hljs-property">readyState</span> === <span class="hljs-number">4</span> &amp;&amp; xhr.<span class="hljs-property">status</span> === <span class="hljs-number">200</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(xhr.<span class="hljs-property">responseText</span>);<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure></li>
+<li>处理服务器响应<br>在接收到服务器响应后，可以通过 JavaScript 对返回的数据进行处理。如果服务器返回的数据是 XML 格式，可以使用 responseXML 属性；如果是文本格式，则可以使用 responseText 属性。</li>
+</ol>
+<p>以上就是 Ajax 的基本原理，通过异步的方式向服务器发送请求，获取数据并进行处理，而不需要刷新整个页面。</p>
+<h1 id="如何解决跨域问题？"><a href="#如何解决跨域问题？" class="headerlink" title="如何解决跨域问题？"></a>如何解决跨域问题？</h1><p>跨域问题是由浏览器的同源策略引起的，限制了页面中的脚本只能访问同一域名下的资源。要解决跨域问题，可以采用以下方法：</p>
+<ol>
+<li>代理跨域请求：通过在服务器上设置代理，将请求发送到目标域名下，然后将响应返回给浏览器。</li>
+<li>JSONP（JSON with Padding）跨域请求：利用 script 标签的跨域特性，通过在请求 URL 中添加一个 callback 参数，并将一个函数名作为参数的值传递给服务器，服务器将响应数据包装在这个函数中返回给浏览器，浏览器接收到响应后会自动执行该函数。</li>
+<li>CORS（Cross-Origin Resource Sharing）跨域请求：通过在服务器端设置响应头部，允许指定的域名访问该服务器的资源，从而实现跨域请求。在客户端发送请求时，需要添加相应的请求头部，说明该请求是一个 CORS 请求。</li>
+<li>WebSocket协议：WebSocket是一种新的网络协议，它可以在浏览器与服务器之间建立一条双向通信的通道，从而绕过浏览器的同源策略。</li>
+</ol>
+<p>需要注意的是，在使用这些方法时，需要在安全性和效率之间做出权衡，并选择合适的方法来解决跨域问题。</p>
+<h1 id="模块化开发怎么做"><a href="#模块化开发怎么做" class="headerlink" title="模块化开发怎么做"></a>模块化开发怎么做</h1><p>模块化开发是将一个大型的应用程序拆分成一个个小的模块，以便于开发和维护。在前端开发中，常用的模块化规范有 CommonJS、AMD 和 ES6 模块等。</p>
+<ul>
+<li><p>在 CommonJS 规范中，一个文件就是一个模块，每个模块都有自己的作用域，模块之间的相互调用通过 require 函数和 module.exports 对象实现。</p>
+</li>
+<li><p>在 AMD 规范中，模块是异步加载的，可以在任何时候加载并且不会阻塞页面的渲染。模块之间的相互调用通过 define 函数和 require 函数实现。</p>
+</li>
+<li><p>在 ES6 模块中，模块是静态加载的，可以在编译时确定模块之间的依赖关系。模块之间的相互调用通过 import 和 export 关键字实现。</p>
+</li>
+</ul>
+<p>在实际开发中，可以使用模块打包工具（如<a target="_blank" rel="noopener" href="https://www.webpackjs.com/">Webpack</a>、<a target="_blank" rel="noopener" href="https://www.rollupjs.com/">Rollup</a> 等）将模块打包成一个或多个文件，以便于部署和使用。同时，还可以使用一些常用的第三方模块（如 <a target="_blank" rel="noopener" href="https://jquery.com/">jQuery</a>、<a target="_blank" rel="noopener" href="https://www.lodashjs.com/">lodash</a>等）来加速开发进程。</p>
+<h1 id="异步加载js的方式有哪些"><a href="#异步加载js的方式有哪些" class="headerlink" title="异步加载js的方式有哪些"></a>异步加载js的方式有哪些</h1><p>异步加载 JavaScript 脚本的方式有以下几种：</p>
+<ol>
+<li>使用<code>&lt;script&gt;</code>标签的<code>async</code>属性: 异步下载脚本，不影响 HTML 页面的解析，下载完成后立即执行。如下所示：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;example.js&quot;</span> <span class="hljs-attr">async</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>使用<code>&lt;script</code>标签的<code>defer</code>属性: 异步下载脚本，不影响 HTML 页面的解析，但在文档完全解析和显示之后才执行。如下所示：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;example.js&quot;</span> <span class="hljs-attr">defer</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>动态创建<code>&lt;script&gt;</code>标签: 使用 JavaScript 在 DOM 中动态创建一个<code>&lt;script&gt;</code>标签，设置其属性 src 指向需要加载的 JavaScript 文件，然后将该标签插入到文档中。如下所示：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> script = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;script&#x27;</span>);<br>script.<span class="hljs-property">src</span> = <span class="hljs-string">&#x27;example.js&#x27;</span>;<br><span class="hljs-variable language_">document</span>.<span class="hljs-property">head</span>.<span class="hljs-title function_">appendChild</span>(script);<br></code></pre></td></tr></table></figure></li>
+<li>使用 XMLHttpRequest 对象异步加载 JavaScript 文件: 通过 XMLHttpRequest 对象发送 HTTP 请求获取 JavaScript 文件，然后通过 eval() 或者 Function() 方法将其执行。如下所示：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">XMLHttpRequest</span>();<br>xhr.<span class="hljs-title function_">open</span>(<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;example.js&#x27;</span>, <span class="hljs-literal">true</span>);<br>xhr.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">if</span> (xhr.<span class="hljs-property">status</span> === <span class="hljs-number">200</span>) &#123;<br>    <span class="hljs-built_in">eval</span>(xhr.<span class="hljs-property">responseText</span>);<br>  &#125;<br>&#125;;<br>xhr.<span class="hljs-title function_">send</span>();<br></code></pre></td></tr></table></figure>
+<div class="note info flat"><p>需要注意的是，使用 XMLHttpRequest 异步加载 JavaScript 文件的方式虽然可以实现异步加载，但有一些安全隐患，应该避免在生产环境中使用。</p>
+</div></li>
+</ol>
+<h1 id="哪些操作会造成内存泄漏"><a href="#哪些操作会造成内存泄漏" class="headerlink" title="哪些操作会造成内存泄漏?"></a>哪些操作会造成内存泄漏?</h1><p>内存泄漏指的是程序中动态分配内存的操作未释放或释放不当，导致内存无法使用或被浪费的现象。在前端开发中，可能会出现以下几种情况会导致内存泄漏：</p>
+<ol>
+<li>意外的全局变量：在声明变量时，如果没有使用 var、const 或 let 等关键字进行声明，则该变量会自动变成全局变量，这样就会一直存在于内存中，造成内存泄漏。</li>
+<li>未清空的定时器：定时器一旦启动就会一直执行，直到被取消或页面被卸载。如果未在适当的时候清空定时器，就会造成内存泄漏。</li>
+<li>循环引用：当两个或多个对象彼此引用时，就会形成循环引用。如果这些对象都没有被释放，就会造成内存泄漏。</li>
+<li>闭包：如果在函数内部定义了一个闭包，并且这个闭包引用了函数外部的变量，那么这些变量就无法被释放，也会造成内存泄漏。</li>
+<li>DOM 元素未正确清理：如果在删除 DOM 元素时，未将其上的事件监听器和引用清除，就会造成内存泄漏。</li>
+</ol>
+<p>为避免内存泄漏，应该注意定期清理不再使用的对象和变量，并使用 JavaScript 开发工具进行内存泄漏检测和优化。</p>
+<h1 id="XML和JSON的区别"><a href="#XML和JSON的区别" class="headerlink" title="XML和JSON的区别"></a>XML和JSON的区别</h1><p>XML（Extensible Markup Language）和JSON（JavaScript Object Notation）都是常见的数据交换格式，但是在一些方面它们有所不同。</p>
+<p>以下是一些 XML 和 JSON 的主要区别：</p>
+<ol>
+<li>语法：XML 是一种基于标签的语言，而 JSON 是基于 JavaScript 对象的语言。</li>
+<li>可读性：相对于 XML，JSON 具有更好的可读性和易于理解。</li>
+<li>数据体积：相同数据的 JSON 表示通常比 XML 更小，因为 JSON 采用了紧凑的数据格式。</li>
+<li>解析速度：由于 JSON 的结构更简单，所以解析速度比 XML 快。</li>
+<li>数据类型：XML 可以描述任何类型的数据，而 JSON 只能表示 JavaScript 中的数据类型，如字符串、数字、布尔值、数组和对象。</li>
+<li>扩展性：由于 XML 的灵活性，它可以支持扩展性和自定义标记，而 JSON 不支持这种灵活性。</li>
+</ol>
+<p>总之，JSON 更加适合在 JavaScript 中使用，因为它是基于 JavaScript 对象的语言，而 XML 更加适合用于应用程序之间的数据交换和存储。</p>
+<h1 id="谈谈你对webpack的看法"><a href="#谈谈你对webpack的看法" class="headerlink" title="谈谈你对webpack的看法"></a>谈谈你对webpack的看法</h1><p>Webpack是一个现代化的前端打包工具，它可以将多个模块打包成一个或多个静态资源文件，同时可以处理代码中的图片、样式、字体等各种类型的资源。Webpack使用基于模块的方法，使得前端代码可以被组织成小的、独立的、可以复用的模块，从而实现了代码的可维护性和扩展性。</p>
+<p>我的看法是，Webpack是非常强大和有用的工具。它可以帮助我们自动化构建和打包我们的前端代码，减少了手动操作的时间和出错率。使用Webpack，我们可以通过配置文件来指定各种不同的功能，例如自动编译、打包、代码分割、压缩等等。同时，Webpack社区也非常活跃，有很多的插件和工具可以帮助我们更好地使用Webpack。</p>
+<p>当然，Webpack也有一些缺点。它的学习曲线比较陡峭，对于初学者来说可能会比较难以理解。同时，Webpack的打包速度也可能会受到一些限制，特别是在处理大型项目时。但是总的来说，Webpack是一个非常优秀的工具，可以帮助我们更好地开发和维护我们的前端代码。</p>
+<h1 id="AMD、CMD、CommonJS、ES6"><a href="#AMD、CMD、CommonJS、ES6" class="headerlink" title="AMD、CMD、CommonJS、ES6"></a>AMD、CMD、CommonJS、ES6</h1><p>AMD、CMD、CommonJS、ES6都是JavaScript模块化规范。</p>
+<ol>
+<li><p>AMD（Asynchronous Module Definition）：异步模块定义，由RequireJS提出。它是浏览器端模块化的主流标准。它采用异步加载方式，模块的加载不影响后面语句的执行，可以在任何地方定义和使用模块。</p>
+</li>
+<li><p>CMD（Common Module Definition）：通用模块定义，由SeaJS提出。它与AMD很像，但采用同步加载方式，也是可以在任何地方定义和使用模块。</p>
+</li>
+<li><p>CommonJS：它是服务器端的模块化规范，Node.js采用了这个规范，使用require()、module.exports等方法来定义和导出模块。它的特点是同步加载，适合服务器环境。</p>
+</li>
+<li><p>ES6：ES6模块是JavaScript的官方模块化规范。它的设计思想借鉴了CommonJS和AMD，但有很多不同之处。它采用静态加载方式，即在编译时就能确定模块之间的依赖关系，使得代码的运行更加安全、效率更高。同时，它支持默认导出和命名导出两种导出方式，使得代码的可读性和可维护性更好。</p>
+</li>
+</ol>
+<div class="note info flat"><p>总的来说，AMD和CMD是浏览器端的模块化规范，主要区别在于模块定义和模块加载的时机不同，适用于不同的场景。CommonJS是服务器端的模块化规范，适用于Node.js等服务器环境。ES6是JavaScript的官方模块化规范，是未来的趋势，使用更加安全、高效，而且具有更好的可读性和可维护性。</p>
+</div>
+<h1 id="常见web安全及防护原理"><a href="#常见web安全及防护原理" class="headerlink" title="常见web安全及防护原理"></a>常见web安全及防护原理</h1><p>Web安全是保护Web应用程序和Web服务器不受恶意攻击和利用的过程。以下是一些常见的Web安全问题和防护原理：</p>
+<ol>
+<li>XSS（跨站脚本攻击）：攻击者在Web页面中插入脚本，以在受害者的浏览器上运行恶意代码。防护原理：输入验证，输出编码，HTTP-only Cookie。</li>
+<li>CSRF（跨站请求伪造）：攻击者利用受害者的身份进行操作，例如在受害者不知情的情况下从其账户中发送请求。防护原理：CSRF Token，Referer 校验。</li>
+<li>SQL注入：攻击者通过构造恶意 SQL 语句来执行数据库操作，例如删除或插入记录。防护原理：参数化查询，输入验证。</li>
+<li>会话劫持和会话固定：攻击者获取受害者的会话 ID，以便将其用于欺骗服务器并冒充受害者。防护原理：会话过期，使用 HTTPS，使用 Cookie HTTP-only 和 Secure 标志。</li>
+<li>文件包含：攻击者利用 Web 应用程序的漏洞来包含本地或远程文件，例如包含密码文件。防护原理：避免使用用户控制的输入作为文件包含的参数。</li>
+<li>点击劫持：攻击者欺骗用户点击一个看似无害的链接，实际上该链接会触发一个不良操作。防护原理：使用 X-FRAME-OPTIONS 响应头禁止嵌入。</li>
+<li>DOS&#x2F;DDOS 攻击：攻击者利用多个计算机同时发起攻击，造成拒绝服务或使网络资源不可用。防护原理：使用反射攻击防御工具，例如DDoS 防御系统，以及合理的服务器配置和硬件升级。</li>
+</ol>
+<p>这些是一些常见的Web安全问题和防护原理，但并不是全部。为了确保Web应用程序的安全，我们需要综合使用多种技术和工具，进行全面的安全测试和代码审查，以发现和纠正任何潜在的漏洞。</p>
+<h1 id="用过哪些设计模式"><a href="#用过哪些设计模式" class="headerlink" title="用过哪些设计模式"></a>用过哪些设计模式</h1><p>这里介绍一些常见的设计模式。</p>
+<ol>
+<li>工厂模式（Factory Pattern）：用来创建不同但相关类型对象的一种模式，用户无需关心对象的创建过程，只需关心所需产品的种类。</li>
+<li>单例模式（Singleton Pattern）：保证一个类只有一个实例，并提供一个访问该实例的全局访问点。</li>
+<li>观察者模式（Observer Pattern）：定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个目标对象，当这个目标对象发生变化时，会通知所有观察者对象，使它们能够自动更新自己。</li>
+<li>适配器模式（Adapter Pattern）：将一个类的接口转换成客户希望的另外一个接口，使得原本由于接口不兼容而不能一起工作的那些类可以在一起工作。</li>
+<li>装饰器模式（Decorator Pattern）：动态地给一个对象添加一些额外的职责，就增加功能来说，装饰器模式比生成子类更加灵活。</li>
+<li>策略模式（Strategy Pattern）：定义了一系列算法，并将每个算法封装起来，使它们可以相互替换。策略模式让算法独立于使用它的客户端而独立变化。</li>
+</ol>
+<p>这些设计模式都有不同的应用场景和优缺点，开发者可以根据实际需要进行选择和使用。</p>
+<h1 id="为什么要有同源限制"><a href="#为什么要有同源限制" class="headerlink" title="为什么要有同源限制"></a>为什么要有同源限制</h1><p>同源限制是浏览器的一种安全策略，它的主要目的是为了防止恶意网站窃取用户的敏感信息或者发起跨站攻击。</p>
+<p>同源是指协议、域名、端口号完全一致。如果两个网站不满足同源条件，就不能共享资源。同源限制防止了跨站点脚本攻击（XSS）、跨站点请求伪造（CSRF）等安全问题的发生。</p>
+<p>举个例子，如果一个网站能够获取到另一个网站的 Cookie 信息，那么它就可以冒充用户身份，获取到用户的隐私信息。如果不进行同源限制，那么这种攻击就很容易实现。因此，同源限制是保护用户安全的重要手段之一。</p>
+<h1 id="JavaScript有哪些方法定义对象"><a href="#JavaScript有哪些方法定义对象" class="headerlink" title="JavaScript有哪些方法定义对象"></a>JavaScript有哪些方法定义对象</h1><ol>
+<li>对象字面量：使用大括号{}定义对象。例如：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> person = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span>,<br>  <span class="hljs-attr">age</span>: <span class="hljs-number">30</span>,<br>  <span class="hljs-attr">address</span>: &#123;<br>    <span class="hljs-attr">city</span>: <span class="hljs-string">&#x27;New York&#x27;</span>,<br>    <span class="hljs-attr">state</span>: <span class="hljs-string">&#x27;NY&#x27;</span><br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure></li>
+<li>构造函数：使用构造函数来创建一个对象。例如：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Person</span>(<span class="hljs-params">name, age</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span> = age;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">greet</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello, my name is &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> + <span class="hljs-string">&#x27; and I am &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span> + <span class="hljs-string">&#x27; years old.&#x27;</span>);<br>  &#125;;<br>&#125;<br><br><span class="hljs-keyword">const</span> john = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&#x27;John&#x27;</span>, <span class="hljs-number">30</span>);<br>john.<span class="hljs-title function_">greet</span>(); <span class="hljs-comment">// output: &quot;Hello, my name is John and I am 30 years old.&quot;</span><br></code></pre></td></tr></table></figure></li>
+<li>Object.create() 方法：使用 Object.create() 方法来创建一个新对象，该对象的原型是一个已经存在的对象。例如：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> person = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span>,<br>  <span class="hljs-attr">age</span>: <span class="hljs-number">30</span>,<br>  <span class="hljs-attr">greet</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello, my name is &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> + <span class="hljs-string">&#x27; and I am &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span> + <span class="hljs-string">&#x27; years old.&#x27;</span>);<br>  &#125;<br>&#125;;<br><br><span class="hljs-keyword">const</span> john = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(person);<br>john.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;John&#x27;</span>;<br>john.<span class="hljs-property">age</span> = <span class="hljs-number">30</span>;<br>john.<span class="hljs-title function_">greet</span>(); <span class="hljs-comment">// output: &quot;Hello, my name is John and I am 30 years old.&quot;</span><br></code></pre></td></tr></table></figure></li>
+<li>ES6 class：使用 class 关键字来定义一个类，并通过 constructor 方法来初始化对象。例如：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name, age</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span> = age;<br>  &#125;<br>  <br>  <span class="hljs-title function_">greet</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Hello, my name is &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> + <span class="hljs-string">&#x27; and I am &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span> + <span class="hljs-string">&#x27; years old.&#x27;</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> john = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&#x27;John&#x27;</span>, <span class="hljs-number">30</span>);<br>john.<span class="hljs-title function_">greet</span>(); <span class="hljs-comment">// output: &quot;Hello, my name is John and I am 30 years old.&quot;</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>这些方法可以根据具体的场景选择使用。</p>
+<h1 id="说说你对promise的了解"><a href="#说说你对promise的了解" class="headerlink" title="说说你对promise的了解"></a>说说你对promise的了解</h1><p>Promise 是 JavaScript 中处理异步操作的一种机制，它使得异步操作可以像同步操作一样来写，避免了回调地狱的问题。Promise 有三种状态：pending（进行中）、fulfilled（已成功）和rejected（已失败）。</p>
+<p>Promise 的基本用法是通过实例化 Promise 对象，传入一个 executor（执行器）函数，执行器函数中包含了异步操作，然后通过 Promise 实例对象的 then() 方法注册回调函数，当异步操作执行完成时，根据操作结果将 Promise 的状态由<code>pending</code>变为<code>fulfilled</code>或<code>rejected</code>，然后执行相应的回调函数。</p>
+<p>Promise 还支持链式调用，即通过 then() 方法注册回调函数，然后返回一个新的 Promise 实例对象，继续调用 then() 方法，从而实现多个异步操作的串联。</p>
+<p>在 Promise 的实现中，通过 resolve() 方法将 Promise 的状态从<code>pending</code>变为<code>fulfilled</code>，通过 reject() 方法将 Promise 的状态从<code>pending</code>变为<code>rejected</code>。同时，可以通过 Promise 的静态方法如 all()、race() 等来实现多个 Promise 实例对象的管理。</p>
+<p>总之，Promise 在 JavaScript 异步编程中具有重要的作用，可以简化异步操作的处理流程，提高代码的可读性和可维护性。</p>
+<h1 id="你觉得jquery源码有哪些写的好的地方"><a href="#你觉得jquery源码有哪些写的好的地方" class="headerlink" title="你觉得jquery源码有哪些写的好的地方"></a>你觉得jquery源码有哪些写的好的地方</h1><p>jQuery是一个流行的JavaScript库，其源代码有许多优秀的特性和设计。以下是一些我认为jQuery源码中写得好的地方：</p>
+<ol>
+<li><p>封装性：jQuery使用了良好的封装性，通过使用立即调用函数表达式（IIFE）来创建自己的作用域，避免全局变量的污染。</p>
+</li>
+<li><p>链式调用：jQuery的方法可以链式调用，这样可以使代码更加简洁、易读。这是通过在每个方法中返回this来实现的，以便在一个语句中调用多个方法。</p>
+</li>
+<li><p>兼容性：jQuery非常注重兼容性，可以运行在所有现代浏览器中，还提供了一个针对旧版本Internet Explorer的jQuery兼容版本。</p>
+</li>
+<li><p>事件处理：jQuery的事件处理机制是非常强大和灵活的，它支持各种事件类型，包括自定义事件、命名空间事件等。</p>
+</li>
+<li><p>DOM操作：jQuery提供了非常丰富的DOM操作方法，如添加、删除、修改元素等。</p>
+</li>
+<li><p>插件机制：jQuery提供了一个插件机制，可以让第三方开发者编写插件来扩展jQuery的功能。</p>
+</li>
+</ol>
+<p>这些都是jQuery源码中写得很好的地方，使得它成为了一个非常受欢迎的JavaScript库。</p>
+<h1 id="Vue、React、Angular"><a href="#Vue、React、Angular" class="headerlink" title="Vue、React、Angular"></a>Vue、React、Angular</h1><p>Vue、React、Angular都是目前前端开发中使用较为广泛的三个主流框架。它们都是通过组件化的方式构建复杂的用户界面，使得前端开发更加高效、简单、可维护。</p>
+<ul>
+<li><p>Vue是一款轻量级的渐进式框架，核心库只关注视图层的渲染，易于上手，同时拥有完善的文档和活跃的社区，便于开发者进行学习和交流。</p>
+</li>
+<li><p>React是一个用于构建用户界面的JavaScript库，它主要关注组件的复用和状态管理，将组件的生命周期管理得十分完善，性能也得到了极大的优化。</p>
+</li>
+<li><p>Angular是一个完整的框架，它提供了强大的组件化和依赖注入功能，可以方便地构建复杂的单页应用，同时提供了许多工具和框架来解决前端开发过程中的各种问题。</p>
+</li>
+</ul>
+<p>这三个框架都有自己的优缺点，选择使用哪个框架要根据具体项目需求和团队技术背景等因素综合考虑。</p>
+<h1 id="Node的应用场景"><a href="#Node的应用场景" class="headerlink" title="Node的应用场景"></a>Node的应用场景</h1><p>Node.js是基于Chrome V8引擎的JavaScript运行环境，它可以在服务器端运行JavaScript代码。因为Node.js具有事件驱动、非阻塞I&#x2F;O等特点，所以它在一些应用场景下比传统的服务器端语言（如PHP、Java等）更具有优势，一些典型的应用场景包括：</p>
+<ol>
+<li><p>Web应用程序：Node.js可以作为Web服务器，处理HTTP请求和响应。由于Node.js具有高效的I&#x2F;O操作，可以处理大量的并发请求，所以在构建高并发的Web应用程序时非常适合。</p>
+</li>
+<li><p>实时应用程序：Node.js适合构建实时应用程序，例如在线聊天室、游戏服务器等。因为Node.js能够通过WebSocket等技术进行实时双向通信。</p>
+</li>
+<li><p>命令行工具：Node.js可以用来构建命令行工具，例如Grunt、Gulp、Webpack等。这些工具通常用于构建、测试、打包等前端开发任务。</p>
+</li>
+<li><p>微服务：Node.js也适合构建微服务架构，微服务是一种将应用程序拆分为多个独立的小服务的架构模式，每个服务都有自己的独立生命周期和数据存储方式。Node.js能够轻松处理微服务中的HTTP通信和数据处理。</p>
+</li>
+<li><p>数据库：Node.js可以与多种数据库进行交互，例如MySQL、MongoDB、Redis等，可以用于构建数据处理和存储的应用程序。</p>
+</li>
+</ol>
+<h1 id="Node和Java有什么异同点"><a href="#Node和Java有什么异同点" class="headerlink" title="Node和Java有什么异同点"></a>Node和Java有什么异同点</h1><p>Node.js 和 Java 都是非常流行的后端开发语言，虽然它们有很多不同的地方，但也有一些共同点。</p>
+<ol>
+<li><p>语言特点：Node.js 使用 JavaScript 作为开发语言，而 Java 则使用 Java 语言。JavaScript 是一门轻量级的语言，可以快速开发原型，但在大型应用中可能会出现维护困难的问题。Java 语言则是一门成熟的语言，其严谨的语法和强大的库使得它适合开发大型应用。</p>
+</li>
+<li><p>执行环境：Node.js 是在服务器端运行的 JavaScript 执行环境，而 Java 则需要依赖 JVM 执行环境。Node.js 使用单线程事件循环机制处理高并发，而 Java 使用多线程来处理并发请求。</p>
+</li>
+<li><p>生态系统：Java 有一个庞大的生态系统，拥有众多开发者和企业支持，Java 的框架和库非常丰富。Node.js 的生态系统也非常活跃，拥有大量的第三方库和框架，但相对于 Java 来说还是比较年轻。</p>
+</li>
+<li><p>应用场景：Java 通常用于开发企业级应用，如大型网站、金融系统、物流系统等。而 Node.js 适合于构建高并发、实时性要求高的应用，如实时聊天应用、实时数据交换应用等。</p>
+</li>
+<li><p>性能：Node.js 在处理 I&#x2F;O 密集型任务时表现优秀，而在 CPU 密集型任务上可能会表现较差。Java 的性能比 Node.js 稳定，并且在处理 CPU 密集型任务时表现更好。</p>
+</li>
+</ol>
+<p>总之，Node.js 和 Java 在很多方面都有不同的优势和适用场景，需要根据具体情况进行选择。</p>
+<h1 id="Web开发中会话跟踪的方法有哪些"><a href="#Web开发中会话跟踪的方法有哪些" class="headerlink" title="Web开发中会话跟踪的方法有哪些"></a>Web开发中会话跟踪的方法有哪些</h1><p>在 Web 开发中，会话跟踪指的是通过不同的机制跟踪用户与应用程序之间的交互过程。常见的会话跟踪方法包括：</p>
+<ol>
+<li>Cookie：在客户端存储少量数据，通过在 HTTP 请求和响应中携带 Cookie 来实现会话跟踪。可以设置 Cookie 的过期时间和作用域。</li>
+<li>Session：在服务器端存储用户的会话信息，通常是一个包含用户信息的对象。在客户端与服务器端建立连接时，服务器会为每个用户创建一个唯一的 Session ID，并将其发送到客户端，以便在后续请求中进行识别。</li>
+<li>URL 重写：将会话信息作为 URL 的一部分，通常是作为查询参数。在每个请求中都需要包含会话信息，相对于 Cookie 和 Session 的方法，URL 重写的会话跟踪方式不太安全。</li>
+<li>HTML5 Web 存储 API：包括本地存储和会话存储。本地存储包括 localStorage 和 sessionStorage，用于存储大量数据。会话存储包括 sessionStorage 和 Web SQL，用于存储会话级别的数据。</li>
+</ol>
+<p>这些会话跟踪方法都有其特点和使用场景，开发者可以根据具体需求和安全性考虑选择适合的方式。</p>
+<h1 id="eval是做什么的"><a href="#eval是做什么的" class="headerlink" title="eval是做什么的"></a>eval是做什么的</h1><p>eval() 是 JavaScript 中的一个内置函数，它的作用是将传入的字符串作为 JavaScript 代码来执行。这个函数接受一个字符串参数，并且可以解析和执行其中的 JavaScript 代码。eval() 在某些情况下可以方便地实现一些动态编程的功能，比如动态地生成函数或者执行一些动态的代码片段。</p>
+<p>但是，由于 eval() 可以执行任意的 JavaScript 代码，包括一些恶意的代码，因此在 Web 开发中，如果没有进行足够的安全措施，使用 eval() 会存在安全隐患。在开发中，<mark class="hl-label red">尽量不要使用eval()</mark>  函数，除非你确实需要执行动态的代码片段，并且已经做好了充分的安全措施。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://shylockKai.gitee.io/shylockkai">Shylock</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://shylockkai.gitee.io/shylockkai/2023/02/13/JavaScript/interview-js01/">https://shylockkai.gitee.io/shylockkai/2023/02/13/JavaScript/interview-js01/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://shylockKai.gitee.io/shylockkai" target="_blank">shylock'blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JS/">JS</a></div><div class="post_share"><div class="social-share" data-image="https://s1.ax1x.com/2023/03/31/pp2xA8e.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/images/wechatPay.png" target="_blank"><img class="post-qr-code-img" src="/images/wechatPay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/02/13/Css/interview-css01/" title="前端面试之CSS基础篇(一)"><img class="cover" src="https://s1.ax1x.com/2023/03/31/pp2zFZq.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">前端面试之CSS基础篇(一)</div></div></a></div><div class="next-post pull-right"><a href="/2023/02/10/nginx/" title="Nginx配置"><img class="cover" src="/images/nginxLogo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Nginx配置</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/02/17/JavaScript/interview-js02/" title="前端面试之JS基础篇(二)"><img class="cover" src="https://s1.ax1x.com/2023/03/31/pp2xA8e.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-17</div><div class="title">前端面试之JS基础篇(二)</div></div></a></div><div><a href="/2023/02/20/JavaScript/interview-js03/" title="前端面试之JS基础篇(三)"><img class="cover" src="https://s1.ax1x.com/2023/03/31/pp2xA8e.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-20</div><div class="title">前端面试之JS基础篇(三)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s1.ax1x.com/2023/03/17/ppG9j1A.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Shylock</div><div class="author-info__description">不求有功于社稷，但求无过于本心。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/shylock-wu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/shylockWu" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/shylock8080@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Welcome to my blog!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JS%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="toc-number">1.</span> <span class="toc-text">JS中的数据类型有哪些</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8Djs%E6%9C%89%E5%93%AA%E4%BA%9B%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.</span> <span class="toc-text">介绍js有哪些内置对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B4%E5%87%A0%E6%9D%A1%E5%86%99javascript%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A7%84%E8%8C%83"><span class="toc-number">3.</span> <span class="toc-text">说几条写javascript的基本规范</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%88%E8%B0%88%E9%97%AD%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">谈谈闭包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B4%E8%AF%B4%E4%BD%A0%E5%AF%B9%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-number">5.</span> <span class="toc-text">说说你对作用域链的理解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#javascript%E5%8E%9F%E5%9E%8B-%E5%8E%9F%E5%9E%8B%E9%93%BE-%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">javascript原型,原型链,有什么特点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">6.1.</span> <span class="toc-text">是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-number">6.2.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto-%E5%8F%88%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">6.3.</span> <span class="toc-text">__proto__又是什么</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B7%E8%A7%A3%E9%87%8A%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E4%BB%B6%E4%BB%A3%E7%90%86"><span class="toc-number">7.</span> <span class="toc-text">请解释什么是事件代理?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF"><span class="toc-number">8.</span> <span class="toc-text">JavaScript如何实现继承</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%88%E8%B0%88this%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-number">9.</span> <span class="toc-text">谈谈this对象的理解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">10.</span> <span class="toc-text">事件模型是什么?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#new%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%85%B7%E4%BD%93%E5%B9%B2%E4%BA%86%E4%BB%80%E4%B9%88%E5%91%A2"><span class="toc-number">11.</span> <span class="toc-text">new操作符具体干了什么呢?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ajax%E5%8E%9F%E7%90%86"><span class="toc-number">12.</span> <span class="toc-text">Ajax原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">13.</span> <span class="toc-text">如何解决跨域问题？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91%E6%80%8E%E4%B9%88%E5%81%9A"><span class="toc-number">14.</span> <span class="toc-text">模块化开发怎么做</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BDjs%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="toc-number">15.</span> <span class="toc-text">异步加载js的方式有哪些</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B%E6%93%8D%E4%BD%9C%E4%BC%9A%E9%80%A0%E6%88%90%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-number">16.</span> <span class="toc-text">哪些操作会造成内存泄漏?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XML%E5%92%8CJSON%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">17.</span> <span class="toc-text">XML和JSON的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9webpack%E7%9A%84%E7%9C%8B%E6%B3%95"><span class="toc-number">18.</span> <span class="toc-text">谈谈你对webpack的看法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AMD%E3%80%81CMD%E3%80%81CommonJS%E3%80%81ES6"><span class="toc-number">19.</span> <span class="toc-text">AMD、CMD、CommonJS、ES6</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81web%E5%AE%89%E5%85%A8%E5%8F%8A%E9%98%B2%E6%8A%A4%E5%8E%9F%E7%90%86"><span class="toc-number">20.</span> <span class="toc-text">常见web安全及防护原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8%E8%BF%87%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">21.</span> <span class="toc-text">用过哪些设计模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E5%90%8C%E6%BA%90%E9%99%90%E5%88%B6"><span class="toc-number">22.</span> <span class="toc-text">为什么要有同源限制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1"><span class="toc-number">23.</span> <span class="toc-text">JavaScript有哪些方法定义对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B4%E8%AF%B4%E4%BD%A0%E5%AF%B9promise%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-number">24.</span> <span class="toc-text">说说你对promise的了解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%A0%E8%A7%89%E5%BE%97jquery%E6%BA%90%E7%A0%81%E6%9C%89%E5%93%AA%E4%BA%9B%E5%86%99%E7%9A%84%E5%A5%BD%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="toc-number">25.</span> <span class="toc-text">你觉得jquery源码有哪些写的好的地方</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue%E3%80%81React%E3%80%81Angular"><span class="toc-number">26.</span> <span class="toc-text">Vue、React、Angular</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Node%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">27.</span> <span class="toc-text">Node的应用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Node%E5%92%8CJava%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C%E7%82%B9"><span class="toc-number">28.</span> <span class="toc-text">Node和Java有什么异同点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BC%9A%E8%AF%9D%E8%B7%9F%E8%B8%AA%E7%9A%84%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="toc-number">29.</span> <span class="toc-text">Web开发中会话跟踪的方法有哪些</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eval%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84"><span class="toc-number">30.</span> <span class="toc-text">eval是做什么的</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/11/NuxtStudy/index/" title="NuxtJS学习专栏"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NuxtJS学习专栏"/></a><div class="content"><a class="title" href="/2023/11/11/NuxtStudy/index/" title="NuxtJS学习专栏">NuxtJS学习专栏</a><time datetime="2023-11-11T06:33:51.000Z" title="发表于 2023-11-11 14:33:51">2023-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/18/JavaScript/Array/" title="Js中关于数组的使用"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Js中关于数组的使用"/></a><div class="content"><a class="title" href="/2023/04/18/JavaScript/Array/" title="Js中关于数组的使用">Js中关于数组的使用</a><time datetime="2023-04-18T03:46:18.000Z" title="发表于 2023-04-18 11:46:18">2023-04-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/17/salesforce/index/" title="Salesforce之JavaScript学习一"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Salesforce之JavaScript学习一"/></a><div class="content"><a class="title" href="/2023/04/17/salesforce/index/" title="Salesforce之JavaScript学习一">Salesforce之JavaScript学习一</a><time datetime="2023-04-17T09:18:05.000Z" title="发表于 2023-04-17 17:18:05">2023-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/06/Docker/NodeAndMysql/" title="使用局域网连接Node容器和MySQL服务器"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用局域网连接Node容器和MySQL服务器"/></a><div class="content"><a class="title" href="/2023/04/06/Docker/NodeAndMysql/" title="使用局域网连接Node容器和MySQL服务器">使用局域网连接Node容器和MySQL服务器</a><time datetime="2023-04-06T11:06:18.000Z" title="发表于 2023-04-06 19:06:18">2023-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/30/MySql/index/" title="MacOS M2 安装MySQL服务"><img src="https://s1.ax1x.com/2023/03/31/pp2j5TK.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MacOS M2 安装MySQL服务"/></a><div class="content"><a class="title" href="/2023/03/30/MySql/index/" title="MacOS M2 安装MySQL服务">MacOS M2 安装MySQL服务</a><time datetime="2023-03-30T08:39:14.000Z" title="发表于 2023-03-30 16:39:14">2023-03-30</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Shylock</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'bkDf9Bp91tiobN9b5rIf3V4X-gzGzoHsz',
+      appKey: 'gmTYBCUnYhbdZlYAZbfVQVQo',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, {"requiredFields":["nick"],"placeholder":"just do it"}))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="/js/jquery.min.js"></script><script defer src="/js/fishes.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

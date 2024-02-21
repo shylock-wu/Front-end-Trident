@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Js中关于数组的使用 | shylock'blog</title><meta name="author" content="Shylock"><meta name="copyright" content="Shylock"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="简介为什么我要单独写一篇文章来记录和说明js中数组相关方法的使用，是因为我发现在使用这些方法的过程中，总是有模糊和遗忘的地方，这里仅记录部分数组方法，如需查看更多请点击MDN。 在JavaScript中，数组是一种常用的数据结构，常常需要对数组进行添加、删除、修改、查找等操作。在进行这些操作时，有一"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://shylockkai.gitee.io/shylockkai/2023/04/18/JavaScript/Array/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Js中关于数组的使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-21 15:58:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script src="/js/disableF12.js"></script><link rel="stylesheet" href="/self/vs2015.css"><link rel="stylesheet" href="/css/font.css"/><link rel="stylesheet" href="/css/diy.css"><link rel="stylesheet" href="/css/footer.css"><meta name="generator" content="Hexo 6.3.0"></head><body><link rel="stylesheet" href="/css/barber-shop.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s1.ax1x.com/2023/03/17/ppG9j1A.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 资源</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fa fa-video-camera"></i><span> 电影</span></a></li><li><a class="site-page child" href="/photo/"><i class="fa-fw fa fa-image"></i><span> 图片</span></a></li><li><a class="site-page child" href="/pdf/"><i class="fa-fw fa fa-file-pdf"></i><span> PDF</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/laboratory/"><i class="fa-fw fa fa-flask-vial"></i><span> 实验室</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heart"></i><span> 随记</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/notes/2022/"><span> 2022</span></a></li><li><a class="site-page child" href="/notes/2023/"><span> 2023</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-external-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/default.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="shylock'blog"><span class="site-name">shylock'blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 资源</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fa fa-video-camera"></i><span> 电影</span></a></li><li><a class="site-page child" href="/photo/"><i class="fa-fw fa fa-image"></i><span> 图片</span></a></li><li><a class="site-page child" href="/pdf/"><i class="fa-fw fa fa-file-pdf"></i><span> PDF</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/laboratory/"><i class="fa-fw fa fa-flask-vial"></i><span> 实验室</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heart"></i><span> 随记</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/notes/2022/"><span> 2022</span></a></li><li><a class="site-page child" href="/notes/2023/"><span> 2023</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-external-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Js中关于数组的使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-18T03:46:18.000Z" title="发表于 2023-04-18 11:46:18">2023-04-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-21T07:58:34.314Z" title="更新于 2024-02-21 15:58:34">2024-02-21</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Js中关于数组的使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>为什么我要单独写一篇文章来记录和说明js中数组相关方法的使用，是因为我发现在使用这些方法的过程中，总是有模糊和遗忘的地方，这里仅记录部分数组方法，如需查看更多请点击<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array">MDN</a>。</p>
+<p>在JavaScript中，数组是一种常用的数据结构，常常需要对数组进行添加、删除、修改、查找等操作。在进行这些操作时，有一些数组方法会直接修改原数组，而有一些则不会。</p>
+<h1 id="是否影响原数组"><a href="#是否影响原数组" class="headerlink" title="是否影响原数组"></a>是否影响原数组</h1><h2 id="会影响"><a href="#会影响" class="headerlink" title="会影响"></a>会影响</h2><h3 id="push-element0-element1-x2F-…-x2F-elementN-：将一个或多个元素添加到数组末尾，并返回新数组的长度。"><a href="#push-element0-element1-x2F-…-x2F-elementN-：将一个或多个元素添加到数组末尾，并返回新数组的长度。" class="headerlink" title="push(element0, element1, &#x2F;* … ,*&#x2F; elementN)：将一个或多个元素添加到数组末尾，并返回新数组的长度。"></a>push(element0, element1, &#x2F;* … ,*&#x2F; elementN)：将一个或多个元素添加到数组末尾，并返回新数组的长度。</h3><blockquote>
+<p>参数：elementN：被添加到数组末尾的元素。<br>返回值：新的<code>length</code></p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br>arr.<span class="hljs-title function_">push</span>(<span class="hljs-number">4</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr) <span class="hljs-comment">// [1, 2, 3, 4]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="pop-：从数组末尾删除一个元素，并返回该元素的值。"><a href="#pop-：从数组末尾删除一个元素，并返回该元素的值。" class="headerlink" title="pop()：从数组末尾删除一个元素，并返回该元素的值。"></a>pop()：从数组末尾删除一个元素，并返回该元素的值。</h3><blockquote>
+<p>参数：无<br>返回值：从数组中删除的元素（当数组为空时返回undefined）。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br>arr.<span class="hljs-title function_">pop</span>() <span class="hljs-comment">// 注意返回的是被删除的元素3</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr) <span class="hljs-comment">// [1, 2]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="shift-element0-element1-x2F-…-x2F-elementN-：从数组开头删除一个元素，并返回该元素的值。"><a href="#shift-element0-element1-x2F-…-x2F-elementN-：从数组开头删除一个元素，并返回该元素的值。" class="headerlink" title="shift(element0, element1, &#x2F;* … ,*&#x2F; elementN)：从数组开头删除一个元素，并返回该元素的值。"></a>shift(element0, element1, &#x2F;* … ,*&#x2F; elementN)：从数组开头删除一个元素，并返回该元素的值。</h3><blockquote>
+<p>参数：elementN，要添加到数组开头的元素。<br>返回值：从数组中删除的元素; 如果数组为空则返回undefined 。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br>arr.<span class="hljs-title function_">shift</span>() <span class="hljs-comment">// 注意返回的是被删除的元素1</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr) <span class="hljs-comment">// [2, 3]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="unshift-：将一个或多个元素添加到数组开头，并返回新数组的长度。"><a href="#unshift-：将一个或多个元素添加到数组开头，并返回新数组的长度。" class="headerlink" title="unshift()：将一个或多个元素添加到数组开头，并返回新数组的长度。"></a>unshift()：将一个或多个元素添加到数组开头，并返回新数组的长度。</h3><blockquote>
+<p>参数：无<br>返回值：新的<code>length</code></p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br><span class="hljs-keyword">const</span> length = arr.<span class="hljs-title function_">unshift</span>(-<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr,length) <span class="hljs-comment">// [-1, 0, 1, 2, 3] 5</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="splice-start-deleteCount-item1-item2-itemN-：从指定位置开始修改原数组，可以删除、添加、替换元素。"><a href="#splice-start-deleteCount-item1-item2-itemN-：从指定位置开始修改原数组，可以删除、添加、替换元素。" class="headerlink" title="splice(start, deleteCount, item1, item2, itemN)：从指定位置开始修改原数组，可以删除、添加、替换元素。"></a>splice(start, deleteCount, item1, item2, itemN)：从指定位置开始修改原数组，可以删除、添加、替换元素。</h3><blockquote>
+<ol>
+<li>index: 必需。规定要添加、删除或替换的数组元素的起始位置。</li>
+<li>deleteCount: 可选。规定要删除的数组元素的数量。如果设置为0，则不删除任何元素。</li>
+<li>item1, …, itemX: 可选。规定要添加到数组的新元素。<br>返回值：由被删除的元素组成的一个数组。如果只删除了一个元素，则返回只包含一个元素的数组。如果没有删除元素，则返回空数组。</li>
+</ol>
+</blockquote>
+<p>例如，以下代码将在数组arr的第二个位置插入一个字符串”insert”：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];<br>arr.<span class="hljs-title function_">splice</span>(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-string">&quot;insert&quot;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr); <span class="hljs-comment">// [1, &quot;insert&quot;, 2, 3, 4]</span><br></code></pre></td></tr></table></figure>
+<p>再例如，以下代码将删除数组arr的第二个和第三个元素:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];<br>arr.<span class="hljs-title function_">splice</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr); <span class="hljs-comment">// [1, 4]</span><br></code></pre></td></tr></table></figure>
+<h3 id="sort-compareFn-：对原数组进行排序（直接修改原数组）。"><a href="#sort-compareFn-：对原数组进行排序（直接修改原数组）。" class="headerlink" title="sort(compareFn)：对原数组进行排序（直接修改原数组）。"></a>sort(compareFn)：对原数组进行排序（直接修改原数组）。</h3><blockquote>
+<p>参数：compareFn(a,b)：可选，用来指定按某种顺序进行排列的函数。如果省略，元素按照转换为的字符串的各个字符的 Unicode 位点进行排序。a: 第一个用于比较的元素,b: 第二个用于比较的元素。</p>
+</blockquote>
+<p>如果没有指明 compareFn ，那么元素会按照转换为的字符串的诸个字符的 Unicode 位点进行排序。例如 “Banana” 会被排列到 “cherry” 之前。当数字按由小到大排序时，9 出现在 80 之前，但因为（没有指明 compareFn），比较的数字会先被转换为字符串，所以在 Unicode 顺序上 “80” 要比 “9” 要<mark class="hl-label red">靠前</mark> 。</p>
+<blockquote>
+<p>返回值：排序后的数组。请注意，数组已原地排序，并且不进行复制。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">compareFn(a, b)  返回值</th>
+<th align="center">排序顺序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&gt; 0</td>
+<td align="center"><code>a</code>在<code>b</code>后</td>
+</tr>
+<tr>
+<td align="center">&lt; 0</td>
+<td align="center"><code>a</code>在<code>b</code>前</td>
+</tr>
+<tr>
+<td align="center">&#x3D;&#x3D;&#x3D; 0</td>
+<td align="center">保持<code>a</code>和<code>b</code>的顺序</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs JS"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br>arr.<span class="hljs-title function_">sort</span>()<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr) <span class="hljs-comment">// [1, 2, 3, 4, 5]</span><br></code></pre></td></tr></table></figure>
+<h3 id="reverse-：反转原数组（直接修改原数组）。"><a href="#reverse-：反转原数组（直接修改原数组）。" class="headerlink" title="reverse()：反转原数组（直接修改原数组）。"></a>reverse()：反转原数组（直接修改原数组）。</h3><blockquote>
+<p>参数：无<br>返回值：颠倒后的数组。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a); <span class="hljs-comment">// [1, 2, 3]</span><br><br>a.<span class="hljs-title function_">reverse</span>();<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a); <span class="hljs-comment">// [3, 2, 1]</span><br></code></pre></td></tr></table></figure>
+<h3 id="fill-value-start-end-：使用给定值填充整个数组或一段区间（直接修改原数组）。"><a href="#fill-value-start-end-：使用给定值填充整个数组或一段区间（直接修改原数组）。" class="headerlink" title="fill(value, start, end)：使用给定值填充整个数组或一段区间（直接修改原数组）。"></a>fill(value, start, end)：使用给定值填充整个数组或一段区间（直接修改原数组）。</h3><blockquote>
+<p>value：用来填充数组元素的值。注意所有数组中的元素都将是这个确定的值：如果 value 是个对象，那么数组的每一项都会引用这个元素。<br>start 可选<br>end 可选</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].<span class="hljs-title function_">fill</span>(<span class="hljs-number">4</span>)); <span class="hljs-comment">// [4, 4, 4]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].<span class="hljs-title function_">fill</span>(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>)); <span class="hljs-comment">// [1, 4, 4]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].<span class="hljs-title function_">fill</span>(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)); <span class="hljs-comment">// [1, 4, 3]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].<span class="hljs-title function_">fill</span>(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)); <span class="hljs-comment">// [1, 2, 3]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].<span class="hljs-title function_">fill</span>(<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>)); <span class="hljs-comment">// [1, 2, 3]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].<span class="hljs-title function_">fill</span>(<span class="hljs-number">4</span>, -<span class="hljs-number">3</span>, -<span class="hljs-number">2</span>)); <span class="hljs-comment">// [4, 2, 3]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].<span class="hljs-title function_">fill</span>(<span class="hljs-number">4</span>, <span class="hljs-title class_">NaN</span>, <span class="hljs-title class_">NaN</span>)); <span class="hljs-comment">// [1, 2, 3]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].<span class="hljs-title function_">fill</span>(<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>)); <span class="hljs-comment">// [1, 2, 3]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Array</span>(<span class="hljs-number">3</span>).<span class="hljs-title function_">fill</span>(<span class="hljs-number">4</span>)); <span class="hljs-comment">// [4, 4, 4]</span><br><br><span class="hljs-comment">// 一个简单的对象，被数组的每个空槽所引用</span><br><span class="hljs-keyword">const</span> arr = <span class="hljs-title class_">Array</span>(<span class="hljs-number">3</span>).<span class="hljs-title function_">fill</span>(&#123;&#125;); <span class="hljs-comment">// [&#123;&#125;, &#123;&#125;, &#123;&#125;]</span><br>arr[<span class="hljs-number">0</span>].<span class="hljs-property">hi</span> = <span class="hljs-string">&quot;hi&quot;</span>; <span class="hljs-comment">// [&#123; hi: &quot;hi&quot; &#125;, &#123; hi: &quot;hi&quot; &#125;, &#123; hi: &quot;hi&quot; &#125;]</span><br></code></pre></td></tr></table></figure>
+
+<mark class="hl-label green">需要注意的是</mark> ，这些方法都是直接修改原数组的，因此在使用时应当谨慎，以免不小心修改了原数组的值导致程序出现错误。
+<h2 id="不会影响"><a href="#不会影响" class="headerlink" title="不会影响"></a>不会影响</h2><h1 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://shylockKai.gitee.io/shylockkai">Shylock</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://shylockkai.gitee.io/shylockkai/2023/04/18/JavaScript/Array/">https://shylockkai.gitee.io/shylockkai/2023/04/18/JavaScript/Array/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://shylockKai.gitee.io/shylockkai" target="_blank">shylock'blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/images/default.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/images/wechatPay.png" target="_blank"><img class="post-qr-code-img" src="/images/wechatPay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/11/11/NuxtStudy/index/" title="NuxtJS学习专栏"><img class="cover" src="/images/default.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">NuxtJS学习专栏</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/17/salesforce/index/" title="Salesforce之JavaScript学习一"><img class="cover" src="/images/default.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Salesforce之JavaScript学习一</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s1.ax1x.com/2023/03/17/ppG9j1A.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Shylock</div><div class="author-info__description">不求有功于社稷，但求无过于本心。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/shylock-wu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/shylockWu" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/shylock8080@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Welcome to my blog!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%AF%E5%90%A6%E5%BD%B1%E5%93%8D%E5%8E%9F%E6%95%B0%E7%BB%84"><span class="toc-number">2.</span> <span class="toc-text">是否影响原数组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%9A%E5%BD%B1%E5%93%8D"><span class="toc-number">2.1.</span> <span class="toc-text">会影响</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#push-element0-element1-x2F-%E2%80%A6-x2F-elementN-%EF%BC%9A%E5%B0%86%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%85%83%E7%B4%A0%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%95%B0%E7%BB%84%E6%9C%AB%E5%B0%BE%EF%BC%8C%E5%B9%B6%E8%BF%94%E5%9B%9E%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E9%95%BF%E5%BA%A6%E3%80%82"><span class="toc-number">2.1.1.</span> <span class="toc-text">push(element0, element1, &#x2F;* … ,*&#x2F; elementN)：将一个或多个元素添加到数组末尾，并返回新数组的长度。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pop-%EF%BC%9A%E4%BB%8E%E6%95%B0%E7%BB%84%E6%9C%AB%E5%B0%BE%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%EF%BC%8C%E5%B9%B6%E8%BF%94%E5%9B%9E%E8%AF%A5%E5%85%83%E7%B4%A0%E7%9A%84%E5%80%BC%E3%80%82"><span class="toc-number">2.1.2.</span> <span class="toc-text">pop()：从数组末尾删除一个元素，并返回该元素的值。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shift-element0-element1-x2F-%E2%80%A6-x2F-elementN-%EF%BC%9A%E4%BB%8E%E6%95%B0%E7%BB%84%E5%BC%80%E5%A4%B4%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%EF%BC%8C%E5%B9%B6%E8%BF%94%E5%9B%9E%E8%AF%A5%E5%85%83%E7%B4%A0%E7%9A%84%E5%80%BC%E3%80%82"><span class="toc-number">2.1.3.</span> <span class="toc-text">shift(element0, element1, &#x2F;* … ,*&#x2F; elementN)：从数组开头删除一个元素，并返回该元素的值。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#unshift-%EF%BC%9A%E5%B0%86%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%85%83%E7%B4%A0%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%95%B0%E7%BB%84%E5%BC%80%E5%A4%B4%EF%BC%8C%E5%B9%B6%E8%BF%94%E5%9B%9E%E6%96%B0%E6%95%B0%E7%BB%84%E7%9A%84%E9%95%BF%E5%BA%A6%E3%80%82"><span class="toc-number">2.1.4.</span> <span class="toc-text">unshift()：将一个或多个元素添加到数组开头，并返回新数组的长度。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#splice-start-deleteCount-item1-item2-itemN-%EF%BC%9A%E4%BB%8E%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE%E5%BC%80%E5%A7%8B%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%95%B0%E7%BB%84%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%88%A0%E9%99%A4%E3%80%81%E6%B7%BB%E5%8A%A0%E3%80%81%E6%9B%BF%E6%8D%A2%E5%85%83%E7%B4%A0%E3%80%82"><span class="toc-number">2.1.5.</span> <span class="toc-text">splice(start, deleteCount, item1, item2, itemN)：从指定位置开始修改原数组，可以删除、添加、替换元素。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sort-compareFn-%EF%BC%9A%E5%AF%B9%E5%8E%9F%E6%95%B0%E7%BB%84%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F%EF%BC%88%E7%9B%B4%E6%8E%A5%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%95%B0%E7%BB%84%EF%BC%89%E3%80%82"><span class="toc-number">2.1.6.</span> <span class="toc-text">sort(compareFn)：对原数组进行排序（直接修改原数组）。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reverse-%EF%BC%9A%E5%8F%8D%E8%BD%AC%E5%8E%9F%E6%95%B0%E7%BB%84%EF%BC%88%E7%9B%B4%E6%8E%A5%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%95%B0%E7%BB%84%EF%BC%89%E3%80%82"><span class="toc-number">2.1.7.</span> <span class="toc-text">reverse()：反转原数组（直接修改原数组）。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fill-value-start-end-%EF%BC%9A%E4%BD%BF%E7%94%A8%E7%BB%99%E5%AE%9A%E5%80%BC%E5%A1%AB%E5%85%85%E6%95%B4%E4%B8%AA%E6%95%B0%E7%BB%84%E6%88%96%E4%B8%80%E6%AE%B5%E5%8C%BA%E9%97%B4%EF%BC%88%E7%9B%B4%E6%8E%A5%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%95%B0%E7%BB%84%EF%BC%89%E3%80%82"><span class="toc-number">2.1.8.</span> <span class="toc-text">fill(value, start, end)：使用给定值填充整个数组或一段区间（直接修改原数组）。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E4%BC%9A%E5%BD%B1%E5%93%8D"><span class="toc-number">2.2.</span> <span class="toc-text">不会影响</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">进阶用法</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/11/NuxtStudy/index/" title="NuxtJS学习专栏"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NuxtJS学习专栏"/></a><div class="content"><a class="title" href="/2023/11/11/NuxtStudy/index/" title="NuxtJS学习专栏">NuxtJS学习专栏</a><time datetime="2023-11-11T06:33:51.000Z" title="发表于 2023-11-11 14:33:51">2023-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/18/JavaScript/Array/" title="Js中关于数组的使用"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Js中关于数组的使用"/></a><div class="content"><a class="title" href="/2023/04/18/JavaScript/Array/" title="Js中关于数组的使用">Js中关于数组的使用</a><time datetime="2023-04-18T03:46:18.000Z" title="发表于 2023-04-18 11:46:18">2023-04-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/17/salesforce/index/" title="Salesforce之JavaScript学习一"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Salesforce之JavaScript学习一"/></a><div class="content"><a class="title" href="/2023/04/17/salesforce/index/" title="Salesforce之JavaScript学习一">Salesforce之JavaScript学习一</a><time datetime="2023-04-17T09:18:05.000Z" title="发表于 2023-04-17 17:18:05">2023-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/06/Docker/NodeAndMysql/" title="使用局域网连接Node容器和MySQL服务器"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用局域网连接Node容器和MySQL服务器"/></a><div class="content"><a class="title" href="/2023/04/06/Docker/NodeAndMysql/" title="使用局域网连接Node容器和MySQL服务器">使用局域网连接Node容器和MySQL服务器</a><time datetime="2023-04-06T11:06:18.000Z" title="发表于 2023-04-06 19:06:18">2023-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/30/MySql/index/" title="MacOS M2 安装MySQL服务"><img src="https://s1.ax1x.com/2023/03/31/pp2j5TK.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MacOS M2 安装MySQL服务"/></a><div class="content"><a class="title" href="/2023/03/30/MySql/index/" title="MacOS M2 安装MySQL服务">MacOS M2 安装MySQL服务</a><time datetime="2023-03-30T08:39:14.000Z" title="发表于 2023-03-30 16:39:14">2023-03-30</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Shylock</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'bkDf9Bp91tiobN9b5rIf3V4X-gzGzoHsz',
+      appKey: 'gmTYBCUnYhbdZlYAZbfVQVQo',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, {"requiredFields":["nick"],"placeholder":"just do it"}))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="/js/jquery.min.js"></script><script defer src="/js/fishes.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

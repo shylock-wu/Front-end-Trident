@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>使用Docker Desktop创建容器 | shylock'blog</title><meta name="author" content="Shylock"><meta name="copyright" content="Shylock"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="安装Docker Desktop 首先去官网进行下载，选择你的电脑系统进行下载安装。  这里国内访问可能有点慢，可使用🪜     测试安装的成功与否打开终端，输入以下命令查看docker的版本，能够显示就说明安装成功了。 1docker -v  构建Node映像为Node.js创建一个Docker"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://shylockkai.gitee.io/shylockkai/2023/03/30/Docker/index/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":null},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用Docker Desktop创建容器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-21 15:58:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script src="/js/disableF12.js"></script><link rel="stylesheet" href="/self/vs2015.css"><link rel="stylesheet" href="/css/font.css"/><link rel="stylesheet" href="/css/diy.css"><link rel="stylesheet" href="/css/footer.css"><meta name="generator" content="Hexo 6.3.0"></head><body><link rel="stylesheet" href="/css/barber-shop.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s1.ax1x.com/2023/03/17/ppG9j1A.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 资源</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fa fa-video-camera"></i><span> 电影</span></a></li><li><a class="site-page child" href="/photo/"><i class="fa-fw fa fa-image"></i><span> 图片</span></a></li><li><a class="site-page child" href="/pdf/"><i class="fa-fw fa fa-file-pdf"></i><span> PDF</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/laboratory/"><i class="fa-fw fa fa-flask-vial"></i><span> 实验室</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heart"></i><span> 随记</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/notes/2022/"><span> 2022</span></a></li><li><a class="site-page child" href="/notes/2023/"><span> 2023</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-external-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s1.ax1x.com/2023/03/31/pp2jjmt.png')"><nav id="nav"><span id="blog-info"><a href="/" title="shylock'blog"><span class="site-name">shylock'blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> 资源</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fa fa-video-camera"></i><span> 电影</span></a></li><li><a class="site-page child" href="/photo/"><i class="fa-fw fa fa-image"></i><span> 图片</span></a></li><li><a class="site-page child" href="/pdf/"><i class="fa-fw fa fa-file-pdf"></i><span> PDF</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/laboratory/"><i class="fa-fw fa fa-flask-vial"></i><span> 实验室</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heart"></i><span> 随记</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/notes/2022/"><span> 2022</span></a></li><li><a class="site-page child" href="/notes/2023/"><span> 2023</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-external-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">使用Docker Desktop创建容器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-30T02:39:16.000Z" title="发表于 2023-03-30 10:39:16">2023-03-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-21T07:58:34.314Z" title="更新于 2024-02-21 15:58:34">2024-02-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%B9%E5%99%A8%E6%9C%8D%E5%8A%A1/">容器服务</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用Docker Desktop创建容器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="安装Docker-Desktop"><a href="#安装Docker-Desktop" class="headerlink" title="安装Docker Desktop"></a>安装Docker Desktop</h1><ol>
+<li><p>首先去<a target="_blank" rel="noopener" href="https://docs.docker.com/get-docker/">官网</a>进行下载，选择你的电脑系统进行下载安装。</p>
+<blockquote>
+<p>这里国内访问可能有点慢，可使用🪜</p>
+</blockquote>
+<!-- ![ppg5RP0.md.png](https://imgse.com/i/ppg5RP0) -->
+<p><img src="https://s1.ax1x.com/2023/03/30/ppg5RP0.png" alt="ppg5RP0.png"></p>
+</li>
+<li><p>测试安装的成功与否<br>打开终端，输入以下命令查看docker的版本，能够显示就说明安装成功了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker -v<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="构建Node映像"><a href="#构建Node映像" class="headerlink" title="构建Node映像"></a>构建Node映像</h1><h2 id="为Node-js创建一个Dockerfile"><a href="#为Node-js创建一个Dockerfile" class="headerlink" title="为Node.js创建一个Dockerfile"></a>为Node.js创建一个Dockerfile</h2><p>接下来，我们需要在Dockerfile中添加一行，告诉Docker应用程序将使用哪个基本映像。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-comment"># syntax=docker/dockerfile:1</span><br><br><span class="hljs-keyword">FROM</span> node:<span class="hljs-number">18</span>-alpine<br></code></pre></td></tr></table></figure>
+<p>Docker镜像可以从其他镜像继承。因此，我们将使用官方的Node.js镜像，而不是创建我们自己的基本镜像，它已经拥有运行Node.js应用程序所需的所有工具和包。您可以用与面向对象编程中的类继承相同的方式来考虑这个问题。例如，如果我们能够在JavaScript中创建Docker镜像，我们可能会编写如下内容。<br><code>class MyImage extends NodeBaseImage &#123;&#125;</code><br>这将创建一个名为<code>MyImage</code>的类，它继承了基类<code>NodeBaseImage</code>的功能。<br>以同样的方式，当我们使用<code>FROM</code>命令时，我们告诉Docker在我们的镜像中包含所有来自<code>node:18-alpine</code>的功能。</p>
+<div class="note info flat"><p>如果您想了解关于创建自己的基本镜像的更多信息，请参见<a target="_blank" rel="noopener" href="https://docs.docker.com/build/building/base-images/">创建基本镜像</a>。</p>
+</div>
+<p><code>NODE_ENV</code>环境变量指定应用程序运行的环境(通常是开发环境或生产环境)。提高性能的最简单方法之一是将<code>NODE_ENV</code>设置为<code>生产环境(production)</code>。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-keyword">ENV</span> NODE_ENV=production<br></code></pre></td></tr></table></figure>
+<p>为了使运行其余命令更容易，让我们创建一个工作目录。这指示Docker使用此路径作为所有后续命令的默认位置。这样我们就不需要输入完整的文件路径，而是可以使用基于工作目录的相对路径。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span><br></code></pre></td></tr></table></figure>
+<p>通常当你下载了一个用Node.js编写的项目后，你要做的第一件事就是安装npm包。这确保您的应用程序将其所有依赖项安装到<code>node_modules</code>目录中，Node运行时将能够在其中找到它们。<br>在运行<code>npm install</code>之前，我们需要将<code>package.json</code>和<code>package-lock.json</code>文件放入我们的镜像中。<br>我们使用<code>COPY</code>命令来执行此操作。<code>COPY</code>命令有两个参数：<code>src</code>和<code>dest</code>。第一个参数<code>src</code>告诉Docker要将哪个文件复制到镜像中。第二个参数<code>dest</code>告诉Docker要将该文件复制到哪里。例如：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-keyword">COPY</span><span class="language-bash"> [<span class="hljs-string">&quot;&lt;src&gt;&quot;</span>, <span class="hljs-string">&quot;&lt;dest&gt;&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+<p>您可以指定多个用逗号分隔的<code>src</code>资源。例如，<code>COPY[&quot;&lt;src1&gt;&quot;，&quot;&lt;src2&gt;&quot;，…，&quot;&lt;est&gt;&quot;]</code>。我们将把<code>package.json</code>和<code>package-lock.json</code>文件复制到我们的工作目录中<code>/app</code>.</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-keyword">COPY</span><span class="language-bash"> [<span class="hljs-string">&quot;package.json&quot;</span>, <span class="hljs-string">&quot;package-lock.json*&quot;</span>, <span class="hljs-string">&quot;./&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+<p>请注意，我们不是复制整个工作目录，而是只复制package.json文件。这允许我们利用缓存的Docker层。一旦我们的文件在镜像中，我们就可以使用<code>RUN</code>命令执行命令npm install。这与我们在机器上本地运行npm install完全相同，但这次这些节点模块将安装到图像内的<code>node_modules</code>目录中。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-keyword">RUN</span><span class="language-bash"> npm install --production</span><br></code></pre></td></tr></table></figure>
+<p>此时，我们有一个基于<code>node 18</code>的镜像，并且我们已经安装了依赖项。接下来我们需要做的是将源码添加到图像中。我们将使用COPY命令，就像我们对上面的<code>package. json</code>文件所做的那样。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span><br></code></pre></td></tr></table></figure>
+<p>COPY命令获取当前目录中的所有文件并将它们复制到映像中。现在，我们所要做的就是告诉Docker，当我们的映像在容器中运行时，我们要运行什么命令。我们使用CMD命令来执行此操作。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-keyword">CMD</span><span class="language-bash"> [ <span class="hljs-string">&quot;node&quot;</span>, <span class="hljs-string">&quot;server.js&quot;</span> ]</span><br></code></pre></td></tr></table></figure>
+<p>这是完整的Dockerfile。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-comment"># syntax=docker/dockerfile:1</span><br><br><span class="hljs-keyword">FROM</span> node:<span class="hljs-number">18</span>-alpine<br><span class="hljs-keyword">ENV</span> NODE_ENV=production<br><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span><br><br><span class="hljs-keyword">COPY</span><span class="language-bash"> [<span class="hljs-string">&quot;package.json&quot;</span>, <span class="hljs-string">&quot;package-lock.json*&quot;</span>, <span class="hljs-string">&quot;./&quot;</span>]</span><br><br><span class="hljs-keyword">RUN</span><span class="language-bash"> npm install --production</span><br><br><span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span><br><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [ <span class="hljs-string">&quot;node&quot;</span>, <span class="hljs-string">&quot;server.js&quot;</span> ]</span><br></code></pre></td></tr></table></figure>
+<h2 id="创建一个-dockerignore文件"><a href="#创建一个-dockerignore文件" class="headerlink" title="创建一个.dockerignore文件"></a>创建一个.dockerignore文件</h2><p>要在<a target="_blank" rel="noopener" href="https://docs.docker.com/build/building/context/">构建上下文中</a>使用文件，Dockerfile引用指令中指定的文件，例如COPY指令。<code>.dockerignore</code>文件允许您指定要从构建上下文中排除的文件和目录。要提高构建性能，请创建一个<code>.dockerignore</code>文件并在其中添加<code>node_modules</code>目录：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile">node_modules<br></code></pre></td></tr></table></figure>
+<h2 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h2><p>现在我们已经创建了Dockerfile，让我们构建图像。为此，我们使用<code>docker build</code>命令。<code>docker build</code>命令从Dockerfile和“上下文”构建Docker图像。构建的上下文是位于指定PATH或URL中的文件集。Docker构建过程可以访问上下文中的任何文件。</p>
+<p>构建命令可以选择使用<code>--tag</code>标志。标签用于设置图像的名称和格式为<code>&#39;name:tag&#39;</code>的可选标签。为了简化事情，我们暂时不使用可选的“tag”。如果你没有传递一个标签，Docker将使用“latest”作为它的默认标签。您将在构建输出的最后一行中看到这一点。</p>
+<p>让我们构建第一个Docker镜像。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker build --tag node-docker .<br><br>[+] Building 93.8s (11/11) FINISHED<br> =&gt; [internal] load build definition from dockerfile                                          0.1s<br> =&gt; =&gt; transferring dockerfile: 617B                                                          0.0s<br> =&gt; [internal] load .dockerignore                                                             0.0s<br> ...<br> =&gt; [2/5] WORKDIR /app                                                                        0.4s<br> =&gt; [3/5] COPY [package.json, package-lock.json*, ./]                                         0.2s<br> =&gt; [4/5] RUN npm install --production                                                        9.8s<br> =&gt; [5/5] COPY . .<br></code></pre></td></tr></table></figure>
+<h2 id="查看本地镜像"><a href="#查看本地镜像" class="headerlink" title="查看本地镜像"></a>查看本地镜像</h2><p>要查看本地机器上的图像列表，有两个选项。一种是使用CLI，另一种是使用Docker Desktop。由于我们目前正在终端中工作，让我们看看如何使用CLI列出图像。<br>要列出镜像，只需运行<code>images</code>命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker images<br>REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE<br>node-docker         latest              3809733582bc        About a minute ago   945MB<br></code></pre></td></tr></table></figure>
+<p>确切的输出可能会有所不同，但是能够看到刚刚创建的带有<code>latest</code>标签的<code>node-docker:latest</code>镜像。</p>
+<h2 id="Tag-images"><a href="#Tag-images" class="headerlink" title="Tag images"></a>Tag images</h2><p>镜像名称由斜杠分隔的名称组件组成。名称组件可能包含小写字母、数字和分隔符。分隔符定义为一个句号、一个或两个下划线或一个或多个破折号。名称组件不能以分隔符开始或结束。</p>
+<p>镜像由清单和层列表组成。简单来说，“标签”指向这些工件的组合。一张镜像可以有多个标签。让我们为创建的镜像创建第二个标签，并查看它的图层。</p>
+<p>要为上面构建的图像创建一个新标记，运行以下命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker tag node-docker:latest node-docker:v1.0.0<br></code></pre></td></tr></table></figure>
+<p><code>Docker tag</code>命令为图像创建一个新标签。它不会创建新的映像。标记指向相同的图像，只是引用图像的另一种方式。</p>
+<p>现在运行<code>docker images</code>命令查看本地映像列表。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker images<br>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE<br>node-docker         latest              3809733582bc        24 minutes ago      945MB<br>node-docker         v1.0.0              3809733582bc        24 minutes ago      945MB<br></code></pre></td></tr></table></figure>
+<p>您可以看到，我们有两个以<code>node-docker</code>开头的镜像。我们知道它们是相同的镜像，因为如果您查看<code>IMAGE ID</code>列，您可以看到两张图像的值是相同的。</p>
+<p>让我们删除刚才创建的标记。为此，我们将使用<code>rmi</code>命令。<code>rmi</code>命令代表<code>remove image</code>。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker rmi node-docker:v1.0.0<br>Untagged: node-docker:v1.0.0<br></code></pre></td></tr></table></figure>
+<p>请注意，Docker的响应告诉我们镜像没有被删除，而只是<code>Untagged</code>。通过运行images命令来验证这一点。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker images<br>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE<br>node-docker         latest              3809733582bc        32 minutes ago      945MB<br></code></pre></td></tr></table></figure>
+<p>标记为<code>v1.0.0</code>的镜像已被删除，但我们的机器上仍然有<code>node-docker:latest</code>标记可用。</p>
+<h1 id="将镜像作为容器运行"><a href="#将镜像作为容器运行" class="headerlink" title="将镜像作为容器运行"></a>将镜像作为容器运行</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>容器是一个正常的操作系统进程，只不过这个进程是隔离的，它有自己的文件系统、自己的网络和自己与主机隔离的进程树。</p>
+<p>要在容器中运行映像，我们使用docker run命令。docker run命令需要一个参数，即映像名称。让我们启动映像并确保它正确运行。在终端中执行以下命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run node-docker<br></code></pre></td></tr></table></figure>
+<p>运行此命令时，您将注意到没有返回到命令提示符。这是因为我们的应用程序是一个REST服务器，它将在一个循环中运行，等待传入的请求，而不将控制返回给操作系统，直到我们停止容器。</p>
+<p>让我们打开一个新终端，然后使用curl命令向服务器发出POST请求。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">curl --request POST \<br>  --url http://localhost:8000/test \<br>  --header <span class="hljs-string">&#x27;content-type: application/json&#x27;</span> \<br>  --data <span class="hljs-string">&#x27;&#123;&quot;msg&quot;: &quot;testing&quot;&#125;&#x27;</span><br>curl: (7) Failed to connect to localhost port 8000: Connection refused<br></code></pre></td></tr></table></figure>
+<p>我们的curl命令失败了，因为到服务器的连接被拒绝了。这意味着我们无法在端口8000上连接到本地主机。这是意料之中的，因为我们的容器是独立运行的，其中包括网络。让我们停止容器并重新启动在本地网络上发布的端口8000。</p>
+<p>要停止容器，请按ctrl-c。这将返回到终端提示符。</p>
+<p>要为我们的容器发布端口，我们将在docker run命令上使用<code>--publish</code>（简称<code>-p</code>）。<code>--publish</code>的格式是<code>[主机端口]：[容器端口]</code>(<code>[host port]:[container port]</code>)。因此，如果我们想将容器内部的端口8000暴露给容器外部的端口3000，我们将把3000:8000传递给<code>--publish</code>标志。</p>
+<p>启动容器，将8000端口暴露到主机的8000端口。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run --publish 8000:8000 node-docker<br></code></pre></td></tr></table></figure>
+<p>现在让我们从上面重新运行curl命令。记得打开一个新终端。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">curl --request POST \<br>  --url http://localhost:8000/test \<br>  --header <span class="hljs-string">&#x27;content-type: application/json&#x27;</span> \<br>  --data <span class="hljs-string">&#x27;&#123;&quot;msg&quot;: &quot;testing&quot;&#125;&#x27;</span><br>&#123;<span class="hljs-string">&quot;code&quot;</span>:<span class="hljs-string">&quot;success&quot;</span>,<span class="hljs-string">&quot;payload&quot;</span>:[&#123;<span class="hljs-string">&quot;msg&quot;</span>:<span class="hljs-string">&quot;testing&quot;</span>,<span class="hljs-string">&quot;id&quot;</span>:<span class="hljs-string">&quot;dc0e2c2b-793d-433c-8645-b3a553ea26de&quot;</span>,<span class="hljs-string">&quot;createDate&quot;</span>:<span class="hljs-string">&quot;2020-09-01T17:36:09.897Z&quot;</span>&#125;]&#125;<br></code></pre></td></tr></table></figure>
+<p>成功!我们能够在端口8000上连接到容器中运行的应用程序。切换回运行容器的终端，您应该看到POST请求被记录到控制台。<br><code>2020-09-01T17:36:09:8770 INFO: POST /test</code><br>按ctrl-c停止容器。</p>
+<h2 id="Run-in-detached-mode-以分离模式运行"><a href="#Run-in-detached-mode-以分离模式运行" class="headerlink" title="Run in detached mode(以分离模式运行)"></a>Run in detached mode(以分离模式运行)</h2><p>到目前为止，这是很棒的，但我们的示例应用程序是一个web服务器，我们不应该让我们的终端连接到容器。Docker可以以分离模式或在后台运行容器。为此，我们可以使用<code>--detach</code>或简称为<code>-d</code>。Docker将像以前一样启动你的容器，但这一次将从容器中<code>分离(detached)</code>，并将你返回到终端提示符。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run -d -p 8000:8000 node-docker<br>ce02b3179f0f10085db9edfccd731101868f58631bdf918ca490ff6fd223a93b<br></code></pre></td></tr></table></figure>
+<p>Docker在后台启动容器，并在终端上打印容器ID。</p>
+<p>同样，让我们确保容器正常运行。从上面运行相同的curl命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">curl --request POST \<br>  --url http://localhost:8000/test \<br>  --header <span class="hljs-string">&#x27;content-type: application/json&#x27;</span> \<br>  --data <span class="hljs-string">&#x27;&#123;&quot;msg&quot;: &quot;testing&quot;&#125;&#x27;</span><br>&#123;<span class="hljs-string">&quot;code&quot;</span>:<span class="hljs-string">&quot;success&quot;</span>,<span class="hljs-string">&quot;payload&quot;</span>:[&#123;<span class="hljs-string">&quot;msg&quot;</span>:<span class="hljs-string">&quot;testing&quot;</span>,<span class="hljs-string">&quot;id&quot;</span>:<span class="hljs-string">&quot;dc0e2c2b-793d-433c-8645-b3a553ea26de&quot;</span>,<span class="hljs-string">&quot;createDate&quot;</span>:<span class="hljs-string">&quot;2020-09-01T17:36:09.897Z&quot;</span>&#125;]&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="List-containers-列出容器"><a href="#List-containers-列出容器" class="headerlink" title="List containers(列出容器)"></a>List containers(列出容器)</h2><p>既然我们在后台运行容器，那么我们如何知道我们的容器是否在运行，或者还有哪些容器在我们的机器上运行呢?好吧，要查看在我们的机器上运行的容器列表，运行<code>docker ps</code>。这类似于在Linux机器上使用ps命令查看进程列表。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES<br>ce02b3179f0f        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   6 minutes ago       Up 6 minutes        0.0.0.0:8000-&gt;8000/tcp   wonderful_kalam<br></code></pre></td></tr></table></figure>
+<p><code>ps</code>命令告诉了我们正在运行的容器的很多信息。我们可以看到容器ID、容器内部运行的映像、用于启动容器的命令、创建容器的时间、状态、暴露的端口和容器的名称。</p>
+<p>您可能想知道容器的名称是从哪里来的。因为我们在启动容器时没有为它提供名称，所以Docker生成了一个随机名称。我们将在一分钟内修复这个问题，但首先我们需要停止容器。要停止容器，请运行<code>docker stop</code>命令，该命令将停止容器。您需要传递容器的名称，也可以使用容器id。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker stop wonderful_kalam<br>wonderful_kalam<br></code></pre></td></tr></table></figure>
+<p>现在重新运行<code>docker ps</code>命令，查看正在运行的容器列表。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker ps<br>CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES<br></code></pre></td></tr></table></figure>
+<h2 id="Stop-start-and-name-containers-停止，启动，命名容器"><a href="#Stop-start-and-name-containers-停止，启动，命名容器" class="headerlink" title="Stop, start, and name containers(停止，启动，命名容器)"></a>Stop, start, and name containers(停止，启动，命名容器)</h2><p>Docker容器可以启动、停止和重新启动。当我们停止一个容器时，它并没有被移除，而是状态被改变为<code>stopped</code>，容器内的进程也停止了。当我们运行<code>docker ps</code>命令时，默认输出是只显示正在运行的容器。如果传递<code>--all</code>或简称<code>-a</code>，我们将看到系统上的所有容器，无论它们是停止还是启动。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker ps -a<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES<br>ce02b3179f0f        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   16 minutes ago      Exited (0) 5 minutes ago                        wonderful_kalam<br>ec45285c456d        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   28 minutes ago      Exited (0) 20 minutes ago                       agitated_moser<br>fb7a41809e5d        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   37 minutes ago      Exited (0) 36 minutes ago                       goofy_khayyam<br></code></pre></td></tr></table></figure>
+<p>如果您一直在跟随本文，应该会看到列出了几个容器。这些是我们启动和停止但没有被移除的容器。</p>
+<p>让我们重新启动刚刚停止的容器。找到我们刚刚停止的容器的名称，并在重启命令中替换下面的容器名称。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker restart wonderful_kalam<br></code></pre></td></tr></table></figure>
+<p>现在，使用<code>ps</code>命令再次列出所有容器。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker ps --all<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS                    NAMES<br>ce02b3179f0f        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   19 minutes ago      Up 8 seconds                0.0.0.0:8000-&gt;8000/tcp   wonderful_kalam<br>ec45285c456d        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   31 minutes ago      Exited (0) 23 minutes ago                            agitated_moser<br>fb7a41809e5d        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   40 minutes ago      Exited (0) 39 minutes ago                            goofy_khayyam<br></code></pre></td></tr></table></figure>
+<p>注意，我们刚刚重新启动的容器是以分离模式启动的，并公开了端口8000。另外，观察容器的状态是“Up X秒”。当您重新启动容器时，它将使用与最初启动时相同的标志或命令启动。</p>
+<p>让我们停下来，删除所有的容器，看看如何修复随机命名问题。</p>
+<p>停止我们刚刚启动的容器。找到正在运行的容器的名称，并将下面命令中的名称替换为系统上的容器名称。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker stop wonderful_kalam<br>wonderful_kalam<br></code></pre></td></tr></table></figure>
+<p>现在我们所有的容器都停止了，让我们移除它们。当一个容器被移除时，它不再运行，也不处于停止状态。但是，容器内部的进程已经停止，容器的元信息已经删除。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker ps --all<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS                    NAMES<br>ce02b3179f0f        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   19 minutes ago      Up 8 seconds                0.0.0.0:8000-&gt;8000/tcp   wonderful_kalam<br>ec45285c456d        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   31 minutes ago      Exited (0) 23 minutes ago                            agitated_moser<br>fb7a41809e5d        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   40 minutes ago      Exited (0) 39 minutes ago                            goofy_khayyam<br></code></pre></td></tr></table></figure>
+<p>要删除容器，只需传递容器名称，运行<code>docker rm</code>命令。您可以在一个命令中将多个容器名称传递给该命令。</p>
+<p>同样，请确保将下面命令中的容器名称替换为来自系统的容器名称。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker <span class="hljs-built_in">rm</span> wonderful_kalam agitated_moser goofy_khayyam<br>wonderful_kalam<br>agitated_moser<br>goofy_khayyam<br></code></pre></td></tr></table></figure>
+<p>再次运行<code>docker ps --all</code>命令，查看是否所有容器都消失了。</p>
+<p>现在让我们来解决烦人的随机命名问题。标准做法是为容器命名，原因很简单，这样更容易识别容器中正在运行的内容以及与之关联的应用程序或服务。就像代码中变量的良好命名约定可以使其更易于阅读一样，容器的命名也是如此。</p>
+<p>要命名容器，我们只需要将<code>--name</code>标志传递给<code>run</code>命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run -d -p 8000:8000 --name rest-server node-docker<br>1aa5d46418a68705c81782a58456a4ccdb56a309cb5e6bd399478d01eaa5cdda<br>docker ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES<br>1aa5d46418a6        node-docker         <span class="hljs-string">&quot;docker-entrypoint.s…&quot;</span>   3 seconds ago       Up 3 seconds        0.0.0.0:8000-&gt;8000/tcp   rest-server<br></code></pre></td></tr></table></figure>
+<p>现在，我们可以根据名称轻松识别容器。</p>
+<h1 id="使用容器进行开发"><a href="#使用容器进行开发" class="headerlink" title="使用容器进行开发"></a>使用容器进行开发</h1><h2 id="本地数据库和容器"><a href="#本地数据库和容器" class="headerlink" title="本地数据库和容器"></a>本地数据库和容器</h2><p>首先，我们将了解如何在容器中运行数据库，以及如何使用卷和网络来持久化数据，并允许应用程序与数据库进行通信。然后，我们将把所有内容整合到一个组合文件中，该文件将允许我们使用一个命令来设置和运行本地开发环境。最后，我们将看看如何将调试器连接到运行在容器中的应用程序。</p>
+<p>我们可以使用MongoDB的Docker官方镜像，并在容器中运行MongoDB，而不是下载MongoDB，安装，配置，然后将MongoDB数据库作为服务运行。</p>
+<p>在容器中运行MongoDB之前，我们想要创建几个卷，Docker可以管理这些卷来存储我们的持久数据和配置。让我们使用docker提供的托管卷特性，而不是使用绑定挂载。有关更多信息，请参见<a target="_blank" rel="noopener" href="https://docs.docker.com/storage/volumes/">使用卷</a>。</p>
+<p>现在让我们创建卷。我们将创建一个用于数据，另一个用于MongoDB的配置。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker volume create mongodb<br>docker volume create mongodb_config<br></code></pre></td></tr></table></figure>
+<p>现在，我们将创建一个网络，应用程序和数据库将使用该网络相互通信。该网络称为用户定义的网桥网络，并为我们提供了一个很好的DNS查找服务，我们可以在创建连接字符串时使用该服务。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker network create mongodb<br></code></pre></td></tr></table></figure>
+<p>现在我们可以在容器中运行MongoDB，并连接到上面创建的卷和网络。Docker将从Hub中提取镜像并在本地为您运行它。</p>
+<h1 id="启动一个不退出的容器"><a href="#启动一个不退出的容器" class="headerlink" title="启动一个不退出的容器"></a>启动一个不退出的容器</h1><p>可以使用<code>-dit</code>命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run -dit --name node16Container node:16<br></code></pre></td></tr></table></figure>
+<ul>
+<li>-d 参数告诉 Docker 在后台运行容器。</li>
+<li>-i 参数表示要求 Docker 将标准输入（stdin）保持打开状态。</li>
+<li>-t 参数表示要求 Docker 为容器分配一个伪终端（pseudo-TTY），以便用户可以与容器进行交互。(可以去掉)</li>
+<li>–name node16Container 参数指定新创建的容器的名称为 node16Container。</li>
+<li>node:16 是要运行的镜像名称和标签。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://shylockKai.gitee.io/shylockkai">Shylock</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://shylockkai.gitee.io/shylockkai/2023/03/30/Docker/index/">https://shylockkai.gitee.io/shylockkai/2023/03/30/Docker/index/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://shylockKai.gitee.io/shylockkai" target="_blank">shylock'blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Docker/">Docker</a></div><div class="post_share"><div class="social-share" data-image="https://s1.ax1x.com/2023/03/31/pp2jjmt.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/images/wechatPay.png" target="_blank"><img class="post-qr-code-img" src="/images/wechatPay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/03/30/MySql/index/" title="MacOS M2 安装MySQL服务"><img class="cover" src="https://s1.ax1x.com/2023/03/31/pp2j5TK.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MacOS M2 安装MySQL服务</div></div></a></div><div class="next-post pull-right"><a href="/2023/03/14/iTerm2/" title="使用 iTerm2 打造美观高效的 Mac 终端"><img class="cover" src="https://s1.ax1x.com/2023/03/15/pp16Lwj.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用 iTerm2 打造美观高效的 Mac 终端</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s1.ax1x.com/2023/03/17/ppG9j1A.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Shylock</div><div class="author-info__description">不求有功于社稷，但求无过于本心。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/shylock-wu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/shylockWu" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/shylock8080@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Welcome to my blog!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Docker-Desktop"><span class="toc-number">1.</span> <span class="toc-text">安装Docker Desktop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%84%E5%BB%BANode%E6%98%A0%E5%83%8F"><span class="toc-number">2.</span> <span class="toc-text">构建Node映像</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BANode-js%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AADockerfile"><span class="toc-number">2.1.</span> <span class="toc-text">为Node.js创建一个Dockerfile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA-dockerignore%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">创建一个.dockerignore文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F"><span class="toc-number">2.3.</span> <span class="toc-text">构建镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F"><span class="toc-number">2.4.</span> <span class="toc-text">查看本地镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tag-images"><span class="toc-number">2.5.</span> <span class="toc-text">Tag images</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%86%E9%95%9C%E5%83%8F%E4%BD%9C%E4%B8%BA%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C"><span class="toc-number">3.</span> <span class="toc-text">将镜像作为容器运行</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">3.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Run-in-detached-mode-%E4%BB%A5%E5%88%86%E7%A6%BB%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C"><span class="toc-number">3.2.</span> <span class="toc-text">Run in detached mode(以分离模式运行)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#List-containers-%E5%88%97%E5%87%BA%E5%AE%B9%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">List containers(列出容器)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stop-start-and-name-containers-%E5%81%9C%E6%AD%A2%EF%BC%8C%E5%90%AF%E5%8A%A8%EF%BC%8C%E5%91%BD%E5%90%8D%E5%AE%B9%E5%99%A8"><span class="toc-number">3.4.</span> <span class="toc-text">Stop, start, and name containers(停止，启动，命名容器)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%B9%E5%99%A8%E8%BF%9B%E8%A1%8C%E5%BC%80%E5%8F%91"><span class="toc-number">4.</span> <span class="toc-text">使用容器进行开发</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E5%AE%B9%E5%99%A8"><span class="toc-number">4.1.</span> <span class="toc-text">本地数据库和容器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA%E4%B8%8D%E9%80%80%E5%87%BA%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="toc-number">5.</span> <span class="toc-text">启动一个不退出的容器</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/11/NuxtStudy/index/" title="NuxtJS学习专栏"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NuxtJS学习专栏"/></a><div class="content"><a class="title" href="/2023/11/11/NuxtStudy/index/" title="NuxtJS学习专栏">NuxtJS学习专栏</a><time datetime="2023-11-11T06:33:51.000Z" title="发表于 2023-11-11 14:33:51">2023-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/18/JavaScript/Array/" title="Js中关于数组的使用"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Js中关于数组的使用"/></a><div class="content"><a class="title" href="/2023/04/18/JavaScript/Array/" title="Js中关于数组的使用">Js中关于数组的使用</a><time datetime="2023-04-18T03:46:18.000Z" title="发表于 2023-04-18 11:46:18">2023-04-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/17/salesforce/index/" title="Salesforce之JavaScript学习一"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Salesforce之JavaScript学习一"/></a><div class="content"><a class="title" href="/2023/04/17/salesforce/index/" title="Salesforce之JavaScript学习一">Salesforce之JavaScript学习一</a><time datetime="2023-04-17T09:18:05.000Z" title="发表于 2023-04-17 17:18:05">2023-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/06/Docker/NodeAndMysql/" title="使用局域网连接Node容器和MySQL服务器"><img src="/images/default.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用局域网连接Node容器和MySQL服务器"/></a><div class="content"><a class="title" href="/2023/04/06/Docker/NodeAndMysql/" title="使用局域网连接Node容器和MySQL服务器">使用局域网连接Node容器和MySQL服务器</a><time datetime="2023-04-06T11:06:18.000Z" title="发表于 2023-04-06 19:06:18">2023-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/30/MySql/index/" title="MacOS M2 安装MySQL服务"><img src="https://s1.ax1x.com/2023/03/31/pp2j5TK.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MacOS M2 安装MySQL服务"/></a><div class="content"><a class="title" href="/2023/03/30/MySql/index/" title="MacOS M2 安装MySQL服务">MacOS M2 安装MySQL服务</a><time datetime="2023-03-30T08:39:14.000Z" title="发表于 2023-03-30 16:39:14">2023-03-30</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Shylock</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'bkDf9Bp91tiobN9b5rIf3V4X-gzGzoHsz',
+      appKey: 'gmTYBCUnYhbdZlYAZbfVQVQo',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, {"requiredFields":["nick"],"placeholder":"just do it"}))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="/js/jquery.min.js"></script><script defer src="/js/fishes.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
